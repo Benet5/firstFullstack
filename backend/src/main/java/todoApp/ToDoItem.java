@@ -1,5 +1,5 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package todoApp;
+
 import java.util.Objects;
 
 public class ToDoItem {

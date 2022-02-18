@@ -1,8 +1,9 @@
+package todoApp;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+
 @RestController
 @RequestMapping("/todoapp")
 public class ToDoController {
@@ -13,28 +14,31 @@ public class ToDoController {
         this.service = service;
     }
 
-    @PostMapping("/addtodo")
-    public  void addItem(@RequestBody ToDoItem newitem){
+    @PostMapping
+    public void addItem(@RequestBody ToDoItem newitem){
         service.addItem(newitem);
     }
 
-    @GetMapping("/getitembyname/{additem}")
+    @GetMapping("/getitembyname/{name}")
     public ToDoItem getItemByName(@PathVariable String name){
         return service.getItemByName(name);
     }
 
 
-
-
-    public void deleteItem( String name){
+    @DeleteMapping ("/deleteitem/{name}")
+    public void deleteItem(@PathVariable String name){
         service.deleteItem(name);
     }
 
-    public void checkItem(String name){
+    @PutMapping("/checkitem/{name}")
+    public void checkItem(@PathVariable String name){
         service.checkItem(name);
     }
 
-
+    @GetMapping ("/getallitems")
+    public List<ToDoItem> getAllItems(){
+        return service.getAllItems();
+    }
 
 
 }

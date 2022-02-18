@@ -1,13 +1,12 @@
+package todoApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
-public class ToDoAppMain {
+public class ToDoAppApplication {
 
 
-    public static void main(String[] args) { SpringApplication.run(ToDoAppMain.class, args);
-
-    }
+    public static void main(String[] args) {SpringApplication.run(ToDoAppApplication.class, args);}
 
 
 

@@ -1,3 +1,6 @@
+package todoApp;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +21,7 @@ class ToDoRepoTest {
         ToDoItem newitem = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen");
         toDoRepo.addItem(newitem);
 
-        assertEquals(todo.get(0), newitem);
+        Assertions.assertEquals(todo.get(0), newitem);
 
     }
 
@@ -63,7 +66,16 @@ class ToDoRepoTest {
         todo.add(newitem);
 
         var actual = toDoRepo.getItemByName("Kaffeekochen");
-        assertEquals(newitem, actual);
+        Assertions.assertEquals(newitem, actual);
+        var actual1 = toDoRepo.getItemByName("KaffEekochen");
+        Assertions.assertEquals(newitem, actual1);
+
+        try {
+            var actual2 = toDoRepo.getItemByName("Milchs");
+        }catch
+        (RuntimeException e){
+            System.out.println("Das ToDo gibt es nicht!");
+        }
 
     }
 
@@ -102,8 +114,8 @@ class ToDoRepoTest {
         toDoRepo.checkItem("Milch");
         toDoRepo.checkItem("Kaffekochen");
         toDoRepo.checkItem("Kaffekochen");
-        assertTrue(newitem1.isStatus());
-        assertFalse(newitem2.isStatus());
+        Assertions.assertTrue(newitem1.isStatus());
+        Assertions.assertFalse(newitem2.isStatus());
 
     }
 
