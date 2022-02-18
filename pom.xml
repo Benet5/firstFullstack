@@ -8,10 +8,10 @@
 		<version>2.6.2</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.github.gossie</groupId>
-	<artifactId>spring-boot-react-bundle-parent</artifactId>
+	<groupId>com.github.Benet5</groupId>
+	<artifactId>todo-App-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-react-bundle-parent</name>
+	<name>todo-App-parent</name>
 	<packaging>pom</packaging>
 	
 	<properties>

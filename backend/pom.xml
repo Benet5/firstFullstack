@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.github.gossie</groupId>
-        <artifactId>spring-boot-react-bundle-parent</artifactId>
+        <groupId>com.github.Benet5</groupId>
+        <artifactId>todo-App-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>spring-boot-react-bundle-backend</artifactId>
+    <artifactId>todo-App-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-react-bundle-backend</name>
+    <name>todo-App-backend</name>
     <description>Demo to deploy frontend and backend</description>
     <dependencies>
         <dependency>
