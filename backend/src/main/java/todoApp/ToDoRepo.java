@@ -2,6 +2,7 @@ package todoApp;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -56,6 +57,13 @@ public class ToDoRepo {
         return result;
     }
 
-    //remove all Funktion
+
+    public List<ToDoItem> itemsByDeadline(String deadline){
+        var todostream =todo.stream();
+        var result = todostream.filter(e -> e.getFormattedEndDate().equals(deadline))
+                .toList();
+        return result;
+    }
+
 
 }
