@@ -2,6 +2,7 @@ package todoApp;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,11 @@ public class ToDoController {
     @GetMapping ("/getallitems")
     public List<ToDoItem> getAllItems(){
         return service.getAllItems();
+    }
+
+    @GetMapping("/getbydate/{deadline}")
+    public List<ToDoItem> getItemsByDate(@PathVariable String deadline){
+        return service.itemsByDeadline(deadline);
     }
 
 

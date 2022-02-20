@@ -24,7 +24,7 @@ class ToDoControllerTest {
     @Test
     void IntegrationstestPost() {
 
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen");
+        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",0);
 
         ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem1, Void.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -36,13 +36,13 @@ class ToDoControllerTest {
 
     @Test
     void Integrationstestdelete(){
-        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!");
-        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen");
+        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0);
+        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen",0);
         ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem2, Void.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         ResponseEntity<Void> response1 = restTemplate.postForEntity("/todoapp", newitem1, Void.class);
         assertEquals(response1.getStatusCode(), HttpStatus.OK);
- // testen mit einem moc
+
 
        restTemplate.delete("/todoapp/deleteitem/Milch", Void.class);
 
@@ -55,8 +55,8 @@ class ToDoControllerTest {
 
     @Test
     void Integrationstestput(){
-        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!");
-        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen");
+        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0);
+        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen",0);
         ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem2, Void.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         ResponseEntity<Void> response1 = restTemplate.postForEntity("/todoapp", newitem1, Void.class);

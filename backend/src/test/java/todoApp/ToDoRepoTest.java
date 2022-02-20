@@ -2,13 +2,16 @@ package todoApp;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 class ToDoRepoTest {
 
@@ -18,7 +21,7 @@ class ToDoRepoTest {
         List<ToDoItem> todo = new ArrayList<>();
         ToDoRepo toDoRepo = new ToDoRepo(todo);
 
-        ToDoItem newitem = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen");
+        ToDoItem newitem = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen",0);
         toDoRepo.addItem(newitem);
 
         Assertions.assertEquals(todo.get(0), newitem);
@@ -29,8 +32,8 @@ class ToDoRepoTest {
     void ShouldgetAllItems(){
         List<ToDoItem> todo = new ArrayList<>();
         ToDoRepo toDoRepo = new ToDoRepo(todo);
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen");
-        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen");
+        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",0);
+        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen",0);
         toDoRepo.addItem(newitem1);
         toDoRepo.addItem(newitem2);
 
@@ -45,7 +48,7 @@ class ToDoRepoTest {
         List<ToDoItem> todo = new ArrayList<>();
         ToDoRepo toDoRepo = new ToDoRepo(todo);
 
-        ToDoItem newitem = new ToDoItem("Kaffeekochen", "Für den gesamten Kurs 15 Tassen");
+        ToDoItem newitem = new ToDoItem("Kaffeekochen", "Für den gesamten Kurs 15 Tassen",0);
         try {
             var actual = toDoRepo.getItemByName("Kaffeekochen");
         }catch
@@ -62,7 +65,7 @@ class ToDoRepoTest {
         List<ToDoItem> todo = new ArrayList<>();
     ToDoRepo toDoRepo = new ToDoRepo(todo);
 
-        ToDoItem newitem = new ToDoItem("Kaffeekochen", "Für den gesamten Kurs 15 Tassen");
+        ToDoItem newitem = new ToDoItem("Kaffeekochen", "Für den gesamten Kurs 15 Tassen",0);
         todo.add(newitem);
 
         var actual = toDoRepo.getItemByName("Kaffeekochen");
@@ -83,8 +86,8 @@ class ToDoRepoTest {
     void ShouldDeleteanItem(){
         List<ToDoItem> todo = new ArrayList<>();
         ToDoRepo toDoRepo = new ToDoRepo(todo);
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen");
-        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen");
+        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",0);
+        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen",0);
         toDoRepo.addItem(newitem1);
         toDoRepo.addItem(newitem2);
 
@@ -106,8 +109,8 @@ class ToDoRepoTest {
     void ShouldSetStatusTrue(){
         List<ToDoItem> todo = new ArrayList<>();
         ToDoRepo toDoRepo = new ToDoRepo(todo);
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen");
-        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen");
+        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",0);
+        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen",0);
         toDoRepo.addItem(newitem1);
         toDoRepo.addItem(newitem2);
 
@@ -119,6 +122,26 @@ class ToDoRepoTest {
 
     }
 
+    @Test
+    void ShouldGetAllItemsbyDate(){
+        ToDoItem newitem1 = new ToDoItem("Kaffee", "ganze Bohnen!", 2);
+        ToDoItem newitem2 = new todoApp.ToDoItem("Tanken", "maximal bis 50€",2);
+        ToDoItem newitem3 = new ToDoItem("KiTa-Platz", "klären bzgl frühestmöglicher Anmeldung",3);
+        ToDoItem newitem4 = new todoApp.ToDoItem("Sturmschaden", "mit der Hausverwaltung schnacken",3);
+
+
+        List <ToDoItem> todo = List.of(newitem1, newitem2 ,newitem3);
+        ToDoRepo toDoRepo = new ToDoRepo(todo);
+
+
+        var actual = toDoRepo.itemsByDeadline("22 02 2022");
+        assertEquals(2, actual.size());
+
+        var actual1 = toDoRepo.itemsByDeadline("23 02 2022");
+        assertEquals(1, actual1.size());
+        assertEquals(newitem3, actual1.get(0));
+
+    }
 
 
 

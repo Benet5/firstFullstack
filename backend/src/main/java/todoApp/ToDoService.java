@@ -2,6 +2,7 @@ package todoApp;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,5 +31,9 @@ public class ToDoService {
 
     public void checkItem(String name){
         todorepo.checkItem(name);
+    }
+
+    public List<ToDoItem> itemsByDeadline(String deadline){
+        return todorepo.itemsByDeadline(deadline);
     }
 }
