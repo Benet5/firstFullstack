@@ -30,6 +30,15 @@ public class ToDoRepo {
         } else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 
+    public ToDoItem getItemById(String id){
+        var result = searchitemID(id);
+        if (result.isPresent()) {
+            return result.get();
+        } else throw new RuntimeException("Das ToDo gibt es nicht!");
+    }
+
+
+
 
     public void deleteItem(String name){
         var result = searchitem(name);
@@ -56,6 +65,15 @@ public class ToDoRepo {
                 .findFirst();
         return result;
     }
+
+    public Optional<ToDoItem> searchitemID(String id){
+        var todostream =todo.stream();
+        var result = todostream.filter(e -> e.getId().equals(id))
+                .findFirst();
+        return result;
+    }
+
+
 
 
     public List<ToDoItem> itemsByDeadline(String deadline){

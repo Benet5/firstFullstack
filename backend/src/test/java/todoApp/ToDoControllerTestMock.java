@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -33,7 +34,7 @@ class ToDoControllerTestMock {
 
         when(toDoService.getAllItems()).thenReturn(todos);
         ResponseEntity<ToDoItem[]> response = restTemplate.getForEntity("/todoapp/getallitems", ToDoItem[].class);
-        assertTrue(Arrays.stream(response.getBody()).count() == 4);
+        assertTrue((response.getBody()).length == 4);
         assertTrue(Arrays.stream(response.getBody()).toList().equals(todos));
     }
 
@@ -48,9 +49,10 @@ class ToDoControllerTestMock {
 
         List <ToDoItem> todos1 = List.of(newitem1, newitem2);
 
-        when(toDoService.itemsByDeadline("22 02 2022")).thenReturn(todos1);
-        ResponseEntity<ToDoItem[]> response = restTemplate.getForEntity("/todoapp/getbydate/22 02 2022", ToDoItem[].class);
+        when(toDoService.itemsByDeadline("23 02 2022")).thenReturn(todos1);
+        ResponseEntity<ToDoItem[]> response = restTemplate.getForEntity("/todoapp/getbydate/23 02 2022", ToDoItem[].class);
         assertTrue(Arrays.stream(response.getBody()).count() == 2);
         assertTrue(Arrays.stream(response.getBody()).toList().equals(todos1));
+        assertThat(response.getBody()).containsExactlyInAnyOrderElementsOf(todos1);
     }
 }

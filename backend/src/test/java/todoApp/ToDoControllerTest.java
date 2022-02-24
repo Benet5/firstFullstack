@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.*;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -37,7 +38,7 @@ class ToDoControllerTest {
     @Test
     void Integrationstestdelete(){
         ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0);
-        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen",0);
+        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen nochmal",0);
         ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem2, Void.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         ResponseEntity<Void> response1 = restTemplate.postForEntity("/todoapp", newitem1, Void.class);
@@ -48,8 +49,12 @@ class ToDoControllerTest {
 
         ResponseEntity<ToDoItem[]> response3 = restTemplate.getForEntity("/todoapp/getallitems", ToDoItem[].class);
         assertTrue(response3.getBody().length == 2);
+        // das ist dasgleiche wie
         var check = Arrays.stream(response3.getBody()).filter(e -> e.equals(newitem2)).findFirst();
         assertTrue(check.get().equals(newitem2));
+        //das
+        assertThat(response3.getBody()).contains(newitem2);
+
 
     }
 

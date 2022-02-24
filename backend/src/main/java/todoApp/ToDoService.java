@@ -25,6 +25,10 @@ public class ToDoService {
         return todorepo.getItemByName(name);
     }
 
+    public ToDoItem getItemById(String id){
+        return todorepo.getItemById(id);
+    }
+
     public void deleteItem( String name){
         todorepo.deleteItem(name);
     }

@@ -25,6 +25,10 @@ public class ToDoController {
         return service.getItemByName(name);
     }
 
+    @GetMapping("/getitembyid/{id}")
+    public ToDoItem getItemById(@PathVariable String id){
+        return service.getItemById(id);
+    }
 
     @DeleteMapping ("/deleteitem/{name}")
     public void deleteItem(@PathVariable String name){

@@ -5,11 +5,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ToDoItem {
     private String name;
     private String description;
     private boolean status= false;
+    private String id;
 
     public String getFormattedEndDate() {
         return formattedEndDate;
@@ -25,6 +27,7 @@ public class ToDoItem {
         Instant now = Instant.now();
         SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
         this.formattedEndDate = formatter.format(Date.from(now.plus(Duration.ofDays(zeitraum))));
+        this.id = UUID.randomUUID().toString();
 
     }
 
@@ -48,6 +51,9 @@ public class ToDoItem {
         return description;
     }
 
+    public String getId(){
+        return id;
+    }
 
     public boolean isStatus() {
         return status;
