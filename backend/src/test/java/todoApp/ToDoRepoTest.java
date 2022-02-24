@@ -134,10 +134,10 @@ class ToDoRepoTest {
         ToDoRepo toDoRepo = new ToDoRepo(todo);
 
 
-        var actual = toDoRepo.itemsByDeadline("23 02 2022"); //hier immer vom heutigen Tag ausgehen
+        var actual = toDoRepo.itemsByDeadline("26 02 2022"); //hier immer vom heutigen Tag ausgehen
         assertEquals(2, actual.size());
 
-        var actual1 = toDoRepo.itemsByDeadline("24 02 2022");
+        var actual1 = toDoRepo.itemsByDeadline("27 02 2022");
         assertEquals(1, actual1.size());
         assertEquals(newitem3, actual1.get(0));
 
