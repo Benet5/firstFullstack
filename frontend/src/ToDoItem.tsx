@@ -3,7 +3,7 @@ import {useState} from "react";
 
 export default function ToDoItem(prop: ItemStructure) {
 
-   const [container, setContainer] = useState('#8C2D4B');
+  // const [container, setContainer] = useState('#8C2D4B');
 
     const checkantwort = (status: boolean) => {
         if (!status) {
@@ -18,7 +18,7 @@ export default function ToDoItem(prop: ItemStructure) {
 
 
     return (
-        <div className="todoitem" style={{background: container}}>
+        <div className="todoitem" style={{background: '#8C2D4B'}}>
             <div>
                 <div>Name: {prop.name}</div>
                 <div>Beschreibung: {prop.description}</div>
