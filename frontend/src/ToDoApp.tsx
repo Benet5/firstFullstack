@@ -7,7 +7,7 @@ export default function ToDoApp(){
     const [description, setDescription] = useState('');
     const [zeitraum, setZeitraum] = useState('');
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
-    const [errormessage, setErrormessage] = useState('')
+
 
     useEffect( () => {
         getAllData()
@@ -27,7 +27,7 @@ export default function ToDoApp(){
                     'Content-Type': 'application/json'
                 }
             }).then(() => getAllData())
-        } else setErrormessage('Da lief was schief!')
+        }
     }
 
 
@@ -56,7 +56,7 @@ export default function ToDoApp(){
                     setDescription('')
                     setZeitraum('')
                 })
-        } else setErrormessage('Da lief was schief!')
+        }
     }
 
 
@@ -73,7 +73,7 @@ export default function ToDoApp(){
                     'Content-Type': 'application/json'
                 }
             }).then(() => getAllData())
-        } else setErrormessage('Da lief was schief!')
+        }
     }
 
 
