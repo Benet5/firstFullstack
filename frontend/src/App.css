@@ -1,0 +1,74 @@
+*{
+    margin:0;
+    background-color: #DCF0FA;
+    font-family: sans-serif;
+
+}
+
+h2{
+    text-align:center;
+
+}
+
+.navbar{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+
+}
+
+.lowernavbar{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.itemlist{
+display: flex;
+border: solid 2px #FF9196;
+align-content: center;
+justify-content: center;
+flex-wrap: wrap;
+
+
+}
+
+.button{
+    background-color:#64C8B9;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px #64C8B9;
+    margin: 5px;
+}
+
+.input{
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 2px black;
+    margin: 5px;
+}
+
+.todoitem{
+    text-align: left;
+    justify-content: left;
+    width: 500px;
+    padding: 8px;
+    color: white;
+    border-radius: 5px;
+    margin: 15px;
+
+
+
+}
+
+.todoitem div{
+    background-color: #8C2D4B;
+    padding: 2px;
+
+}
