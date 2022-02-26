@@ -49,8 +49,8 @@ class ToDoControllerTestMock {
 
         List <ToDoItem> todos1 = List.of(newitem1, newitem2);
 
-        when(toDoService.itemsByDeadline("23 02 2022")).thenReturn(todos1);
-        ResponseEntity<ToDoItem[]> response = restTemplate.getForEntity("/todoapp/getbydate/23 02 2022", ToDoItem[].class);
+        when(toDoService.itemsByDeadline("28 02 2022")).thenReturn(todos1);
+        ResponseEntity<ToDoItem[]> response = restTemplate.getForEntity("/todoapp/getbydate/28 02 2022", ToDoItem[].class);
         assertTrue(Arrays.stream(response.getBody()).count() == 2);
         assertTrue(Arrays.stream(response.getBody()).toList().equals(todos1));
         assertThat(response.getBody()).containsExactlyInAnyOrderElementsOf(todos1);

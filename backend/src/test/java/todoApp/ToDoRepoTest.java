@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class ToDoRepoTest {
-
+//test
 
     @Test
     void ShouldAddAnItem(){
@@ -134,10 +134,10 @@ class ToDoRepoTest {
         ToDoRepo toDoRepo = new ToDoRepo(todo);
 
 
-        var actual = toDoRepo.itemsByDeadline("26 02 2022"); //hier immer vom heutigen Tag ausgehen
+        var actual = toDoRepo.itemsByDeadline("28 02 2022"); //hier immer vom heutigen Tag ausgehen
         assertEquals(2, actual.size());
 
-        var actual1 = toDoRepo.itemsByDeadline("27 02 2022");
+        var actual1 = toDoRepo.itemsByDeadline("01 03 2022");
         assertEquals(1, actual1.size());
         assertEquals(newitem3, actual1.get(0));
 

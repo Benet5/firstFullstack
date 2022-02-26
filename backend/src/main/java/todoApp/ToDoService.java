@@ -33,6 +33,10 @@ public class ToDoService {
         todorepo.deleteItem(name);
     }
 
+    public void checkItemId(String id){
+        todorepo.checkItemId(id);
+    }
+
     public void checkItem(String name){
         todorepo.checkItem(name);
     }

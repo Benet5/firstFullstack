@@ -48,6 +48,15 @@ public class ToDoRepo {
 
     }
 
+    public void checkItemId(String id){
+        var result = searchitemID(id);
+        if (result.isPresent()) {
+            if(!result.get().isStatus()){
+                result.get().setStatus(true);
+            }else {result.get().setStatus(false);
+            } }
+        else throw new RuntimeException("Das ToDo gibt es nicht!");
+    }
 
     public void checkItem(String name){
         var result = searchitem(name);
