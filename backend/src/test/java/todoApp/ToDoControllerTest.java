@@ -69,12 +69,12 @@ class ToDoControllerTest {
         // testen mit einem moc
 
         restTemplate.put("/todoapp/checkitem/Milch", newitem1, Void.class);
-        restTemplate.put("/todoapp/checkitem/Kaffee", newitem2, Void.class);
-        restTemplate.put("/todoapp/checkitem/Kaffee", newitem2, Void.class);
+        restTemplate.put("/todoapp/checkitemid/"+newitem2.getId(), newitem2, Void.class);
+        restTemplate.put("/todoapp/checkitemid/"+newitem2.getId(), newitem2, Void.class);
 
 
         ResponseEntity<ToDoItem> response3 = restTemplate.getForEntity("/todoapp/getitembyname/Milch", ToDoItem.class);
-        ResponseEntity<ToDoItem> response4 = restTemplate.getForEntity("/todoapp/getitembyname/Kaffee", ToDoItem.class);
+        ResponseEntity<ToDoItem> response4 = restTemplate.getForEntity("/todoapp/getitembyid/"+newitem2.getId(), ToDoItem.class);
         assertTrue(response3.getBody().isStatus());
         assertFalse(response4.getBody().isStatus());
         }

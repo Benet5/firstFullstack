@@ -2,11 +2,12 @@ package todoApp;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/todoapp")
+@CrossOrigin
 public class ToDoController {
 
     private ToDoService service;
@@ -33,6 +34,11 @@ public class ToDoController {
     @DeleteMapping ("/deleteitem/{name}")
     public void deleteItem(@PathVariable String name){
         service.deleteItem(name);
+    }
+
+    @PutMapping("/checkitemid/{id}")
+    public void checkItemId(@PathVariable String id){
+        service.checkItemId(id);
     }
 
     @PutMapping("/checkitem/{name}")
