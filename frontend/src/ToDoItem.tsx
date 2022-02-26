@@ -1,9 +1,9 @@
 import {ItemStructure} from "./model";
-import {useState} from "react";
+//import {useState} from "react";
 
 export default function ToDoItem(prop: ItemStructure) {
 
-  // const [container, setContainer] = useState('#8C2D4B');
+  //const [container, setContainer] = useState('#8C2D4B');
 
     const checkantwort = (status: boolean) => {
         if (!status) {
@@ -14,6 +14,14 @@ export default function ToDoItem(prop: ItemStructure) {
             return "To-Do ist schon abgehakt!";
         }
     }
+/* Mit in die CheckitemFuntion einbauen
+    const checkitemfarbe =() =>{
+        if (prop.status) {
+            setContainer('#64C8B9');
+        }
+        }
+*/
+
 
 
 

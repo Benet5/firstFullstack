@@ -9,14 +9,14 @@ export default function ToDoApp(){
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
 
 
+
     useEffect( () => {
         getAllData()
     }, []
     )
 
     const checkitem = () => {
-        if (name.length > 2) {
-            fetch("http://127.0.0.1:8080/todoapp/checkitem/" + name, {
+            fetch("http://127.0.0.1:8080/todoapp/checkitem/"+name, {
                 method: 'PUT',
                 body: JSON.stringify({
                     name: name,
@@ -28,7 +28,7 @@ export default function ToDoApp(){
                 }
             }).then(() => getAllData())
         }
-    }
+
 
 
   const getAllData = () => {
@@ -80,8 +80,8 @@ export default function ToDoApp(){
 
     // hier die checkitemfunktion mit übergeben, um sie via button in todoItem aufzureufen
     const items =
-        allData.map(e => <ToDoItem formattedEndDate={e.formattedEndDate} name={e.name} description={e.description} id={e.id} status={e.status}/>)
-
+        allData.map(e => <ToDoItem  formattedEndDate={e.formattedEndDate} name={e.name} description={e.description} id={e.id} status={e.status}/>)
+//checkitem={e.checkitem}
 
 
     return(
@@ -94,8 +94,8 @@ export default function ToDoApp(){
         </div>
             <div className="lowernavbar">
                 <button className="button" onClick={postData}>Item erstellen</button>
-                <button className="button" onClick={checkitem}>Item abhaken</button>
                 <button className="button" onClick={getAllData}>Alle Items anzeigen</button>
+                <button className="button" onClick={checkitem}>Item abhaken</button>
                 <button className="button" onClick={deleteitem}>Item löschen</button>
             </div>
 
