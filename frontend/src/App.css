@@ -1,22 +1,31 @@
 *{
     margin:0;
-    background-color: #DCF0FA;
+    background-color: #83a8e1;
     font-family: sans-serif;
 
 }
 
 h2{
     text-align:center;
+    vertical-align: center;
+
 
 }
 
-.navbar{
+h3{
+    text-align:center;
+    vertical-align: center;
+    padding: 10px;
+    margin: 5px;
+}
+
+.create{
     display: flex;
     align-content: center;
     justify-content: center;
+    flex-wrap: wrap;
     padding-top: 20px;
     padding-bottom: 20px;
-
 
 }
 
@@ -54,7 +63,18 @@ flex-wrap: wrap;
     margin: 5px;
 }
 
-.todoitem{
+.todoitem1 {
+    text-align: left;
+    justify-content: left;
+    width: 500px;
+    padding: 8px;
+    color: black;
+    border-radius: 5px;
+    margin: 15px;
+    background-color: #64C8B9;
+}
+
+.todoitem2 {
     text-align: left;
     justify-content: left;
     width: 500px;
@@ -62,13 +82,28 @@ flex-wrap: wrap;
     color: white;
     border-radius: 5px;
     margin: 15px;
-
-
-
+    background-color: #8C2D4B;
 }
 
-.todoitem div{
+.buttonBack{
+    text-align: center;
+    justify-content: center;
+    background-color: #777777;
+    border-radius: 5px;
+}
+
+.check2{
     background-color: #8C2D4B;
     padding: 2px;
-
+    color: black;
 }
+
+.check1{
+    background-color: #64C8B9;
+    padding: 2px;
+}
+
+
+
+
+
