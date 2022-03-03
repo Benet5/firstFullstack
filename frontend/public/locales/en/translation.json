@@ -1,0 +1,21 @@
+{
+  "inputPlaceholderName" : "To-Do-Name",
+  "inputPlaceholderDescription" : "To-Do-Description",
+  "inputPlaceholderDeadline" : "To-Do-Deadline",
+  "buttonCreateItem" : "Create item",
+  "buttonGetAllData" : "Show all items",
+  "buttonDeleteChecked" : "Delete all checked items",
+  "errorNoDataOrLoading" : "No results or page is still loading.",
+  "itemName" : "Name:",
+  "itemDescription" : "Description:",
+  "itemDeadline" : "Your deadline:",
+  "itemID":  "ID:",
+  "itemStatus" : "Status:",
+  "buttonCheckItem" : "Check item",
+  "buttonDeleteItem" : "Delete item",
+  "searchItem" : "Search item",
+  "createItem" : "Create item:",
+  "title" : "My To-Dos",
+  "todoOpen": "To-Do is still open!",
+  "todoChecked" : "To-Do is already checked!"
+}

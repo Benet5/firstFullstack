@@ -1,6 +1,7 @@
-import {useEffect, useState} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import {ItemStructure} from "./model";
 import ToDoItem from "./ToDoItem";
+import { useTranslation } from "react-i18next";
 
 
 export default function ToDoApp(){
@@ -10,7 +11,7 @@ export default function ToDoApp(){
     const [zeitraum, setZeitraum] = useState('');
     const [searchzeitraum, setsearchZeitraum] = useState('');
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
-
+    const { t } = useTranslation();
 
 
     useEffect( () => {
@@ -26,7 +27,8 @@ export default function ToDoApp(){
 
     }
 
-    const postData = () => {
+    const postData = (event : FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
         if (name.length > 2) {
             fetch(`${process.env.REACT_APP_BASE_URL}/todoapp`, {
                 method: 'POST',
@@ -59,23 +61,25 @@ export default function ToDoApp(){
     return(
         <div>
         <div>
-            <div className="create">
-            <h3>Item erstellen</h3>
-            <div><input className="input" type ={'text'} placeholder={'To-Do-Name'} value={name} onChange={e => setName(e.target.value)}/></div>
-            <div><input className="input" type ={'text'} placeholder={'To-Do-Description'} value={description} onChange={e => setDescription(e.target.value)}/></div>
-            <div><input className="input" type ={'text'} placeholder={'To-Do-Deadline'} value={zeitraum} onChange={e => setZeitraum(e.target.value)}/></div>
-                <button className="button" onClick={postData}>Item erstellen</button>
+            <div  >
+                <form className="create" onSubmit={ev =>postData(ev)}>
+            <h3>{t("createItem")}</h3>
+            <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderName")} value={name} onChange={e => setName(e.target.value)}/></div>
+            <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderDescription")} value={description} onChange={e => setDescription(e.target.value)}/></div>
+            <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderDeadline")} value={zeitraum} onChange={e => setZeitraum(e.target.value)}/></div>
+                <button className="button" type='submit'>{t('buttonCreateItem')}</button>
+                </form>
             </div>
             <div className="create">
-            <h3>Item Suchen</h3>
-            <div><input className="input" type ={'text'} placeholder={'To-Do-Name'} value={searchname} onChange={e => setsearchName(e.target.value)} /></div>
-                <div><input className="input" type ={'text'} placeholder={'To-Do-Deadline'} value={searchzeitraum} onChange={e => setsearchZeitraum(e.target.value)}/></div>
+            <h3>{t('searchItem')}</h3>
+            <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderName")} value={searchname} onChange={e => setsearchName(e.target.value)} /></div>
+                <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderDeadline")} value={searchzeitraum} onChange={e => setsearchZeitraum(e.target.value)}/></div>
             </div>
         </div>
             <div className="lowernavbar">
 
-                <button className="button" onClick={getAllData}>Alle Items anzeigen</button>
-                <button className="button" onClick={deletechecked}>Alle gecheckten Items löschen</button>
+                <button className="button" onClick={getAllData}>{t("buttonGetAllData")}</button>
+                <button className="button" onClick={deletechecked}>{t("buttonDeleteChecked")}</button>
 
             </div>
 
@@ -87,7 +91,7 @@ export default function ToDoApp(){
                     .filter(e => e.formattedEndDate.includes(searchzeitraum))
                     .map(e => <ToDoItem item ={e} key={e.id} getData={getAllData}/>)
                 :
-                <div>Keine Ergebnisse oder Seite wird neu geladen</div>
+                <div>{t('errorNoDataOrLoading')}</div>
         }
         </div>
         </div>

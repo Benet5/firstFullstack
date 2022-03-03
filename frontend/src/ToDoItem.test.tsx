@@ -16,7 +16,7 @@ test("To-DoItem ist renderd Correctly", () =>{
 render(<ToDoItem item={demoitem} getData={() => {}}/>)
 
     const result = Array.from(screen.getByTestId('the-item').querySelectorAll("div"))
-    expect(result[1].textContent).toEqual("Name: Han Solo")
-    expect(result[3].textContent).toEqual("Deine Deadline: 24 03 2022")
-    expect(result[4].textContent).toEqual("ID: 12345g")
+    expect(result[1].textContent).toEqual("itemName Han Solo")
+    expect(result[3].textContent).toEqual(" itemDeadline 24 03 2022")
+    expect(result[4].textContent).toEqual("itemID 12345g")
 })
