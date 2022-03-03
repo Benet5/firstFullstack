@@ -3,6 +3,7 @@ package todoApp;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -16,7 +17,6 @@ public class ToDoItem {
     public String getFormattedEndDate() {
         return formattedEndDate;
     }
-
     private String formattedEndDate;
 
 
@@ -54,6 +54,7 @@ public class ToDoItem {
     public String getId(){
         return id;
     }
+
 
     public boolean isStatus() {
         return status;

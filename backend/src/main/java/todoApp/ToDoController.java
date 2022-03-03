@@ -56,5 +56,8 @@ public class ToDoController {
         return service.itemsByDeadline(deadline);
     }
 
-
+    @PutMapping("/checkeditems")
+    public List<ToDoItem> deleteCheckedItems(){
+        return service.deleteCheckedItems();
+    }
 }

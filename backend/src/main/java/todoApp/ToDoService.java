@@ -29,6 +29,10 @@ public class ToDoService {
         return todorepo.getItemById(id);
     }
 
+    public List<ToDoItem> deleteCheckedItems(){
+        return todorepo.deleteCheckedItems();
+    }
+
     public void deleteItem( String name){
         todorepo.deleteItem(name);
     }
