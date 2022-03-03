@@ -7,7 +7,7 @@ interface ToDoItemprops{
 export default function ToDoItem(prop: ToDoItemprops) {
 
     const checkitem = () => {
-        fetch(`http://127.0.0.1:8080/todoapp/checkitemid/${prop.item.id}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkitemid/${prop.item.id}`, {
             method: 'PUT',
         }).then(() => prop.getData())
     }
@@ -23,14 +23,14 @@ export default function ToDoItem(prop: ToDoItemprops) {
 
 
     const deleteitem = () => {
-            fetch("http://127.0.0.1:8080/todoapp/deleteitem/" + prop.item.name, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/deleteitem/${prop.item.name}`, {
                 method: 'DELETE'
                 }).then(() => prop.getData())
     }
 
 
     return (
-        <div className={prop.item.status ? "todoitem1" : "todoitem2"}>
+        <div className={prop.item.status ? "todoitem1" : "todoitem2"} data-testid="the-item">
             <div className={prop.item.status ? "check1" : "check2"}>
                 <div className={prop.item.status ? "check1" : "check2"}>Name: {prop.item.name}</div>
                 <div className={prop.item.status ? "check1" : "check2"}>Beschreibung: {prop.item.description}</div>
