@@ -5,6 +5,5 @@ export interface ItemStructure{
     description: string;
     id: string;
     status: boolean;
-   // checkitem: ()=>{};
 
 }

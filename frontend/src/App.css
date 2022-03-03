@@ -5,11 +5,13 @@
 
 }
 
+
+
+
 h2{
     text-align:center;
     vertical-align: center;
-
-
+    padding-top: 10px;
 }
 
 h3{
@@ -93,14 +95,16 @@ flex-wrap: wrap;
 }
 
 .check2{
-    background-color: #8C2D4B;
+    background-color: transparent;
     padding: 2px;
-    color: black;
+    color:white;
+
 }
 
 .check1{
-    background-color: #64C8B9;
+    background-color: transparent;
     padding: 2px;
+    color: black;
 }
 
 
