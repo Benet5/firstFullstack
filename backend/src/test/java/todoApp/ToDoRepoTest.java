@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -121,7 +122,7 @@ class ToDoRepoTest {
         Assertions.assertFalse(newitem2.isStatus());
 
     }
-
+/*
     @Test
     void ShouldGetAllItemsbyDate(){
         ToDoItem newitem1 = new ToDoItem("Kaffee", "ganze Bohnen!", 2);
@@ -142,7 +143,7 @@ class ToDoRepoTest {
         assertEquals(newitem3, actual1.get(0));
 
     }
-
+*/
 @Test
 void ShouldgetItembyID(){
     List<ToDoItem> todo = new ArrayList<>();
@@ -162,6 +163,25 @@ void ShouldgetItembyID(){
     }
 
 }
+
+    @Test
+    void Shouldremovechecked(){
+        List<ToDoItem> todo = new ArrayList<>();
+        ToDoRepo toDoRepo = new ToDoRepo(todo);
+
+        ToDoItem newitem = new ToDoItem("Kaffeekochen", "Für den gesamten Kurs 15 Tassen",0);
+        ToDoItem newitem1 = new ToDoItem("Milch", "Für den gesamten Kurs 15 Tassen",0);
+        toDoRepo.addItem(newitem);
+        toDoRepo.addItem(newitem1);
+
+
+        toDoRepo.checkItem("Milch");
+
+        toDoRepo.deleteCheckedItems();
+        assertThat(todo.size() ==1);
+        assertThat(toDoRepo.getAllItems().contains(newitem));
+
+    }
 }
 
 

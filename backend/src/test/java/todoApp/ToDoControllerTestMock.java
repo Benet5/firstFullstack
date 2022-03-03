@@ -38,7 +38,7 @@ class ToDoControllerTestMock {
         assertTrue(Arrays.stream(response.getBody()).toList().equals(todos));
     }
 
-
+/*
     @Test
     void ShouldGetAllItemsbyDate(){
         ToDoItem newitem1 = new ToDoItem("Kaffee", "ganze Bohnen!", 2);
@@ -54,5 +54,5 @@ class ToDoControllerTestMock {
         assertTrue(Arrays.stream(response.getBody()).count() == 2);
         assertTrue(Arrays.stream(response.getBody()).toList().equals(todos1));
         assertThat(response.getBody()).containsExactlyInAnyOrderElementsOf(todos1);
-    }
+    } */
 }

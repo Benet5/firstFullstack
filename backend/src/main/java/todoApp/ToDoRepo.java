@@ -2,10 +2,7 @@ package todoApp;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class ToDoRepo {
@@ -20,6 +17,7 @@ public class ToDoRepo {
     }
 
     public List <ToDoItem> getAllItems(){
+        todo.sort(Comparator.comparing(ToDoItem::getFormattedEndDate));
         return todo;
     }
 
@@ -82,6 +80,10 @@ public class ToDoRepo {
         return result;
     }
 
+    public List <ToDoItem>deleteCheckedItems() {
+        todo.removeIf(e -> e.isStatus());
+        return todo;
+    }
 
 
 
