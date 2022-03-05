@@ -17,5 +17,7 @@
   "createItem" : "Create item:",
   "title" : "My To-Dos",
   "todoOpen": "To-Do is still open!",
-  "todoChecked" : "To-Do is already checked!"
+  "todoChecked" : "To-Do is already checked!",
+  "buttonEditItem" : "Edit item",
+  "buttonSaveItem" : "save"
 }

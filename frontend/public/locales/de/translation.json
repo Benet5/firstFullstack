@@ -17,5 +17,7 @@
   "createItem" : "Item erstellen:",
   "title" : "Meine To-Dos",
   "todoOpen": "To-Do ist noch offen!",
-  "todoChecked" : "To-Do ist schon gecheckt!"
+  "todoChecked" : "To-Do ist schon gecheckt!",
+  "buttonEditItem" : "Item bearbeiten",
+  "buttonSaveItem" : "Speichern"
 }

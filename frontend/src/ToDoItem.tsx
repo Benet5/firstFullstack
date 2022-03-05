@@ -1,5 +1,7 @@
 import {ItemStructure} from "./model";
 import { useTranslation } from "react-i18next";
+import {useState} from "react";
+import {Link} from "react-router-dom";
 //import {useState} from "react";
 interface ToDoItemprops{
     item: ItemStructure
@@ -7,10 +9,15 @@ interface ToDoItemprops{
 }
 export default function ToDoItem(prop: ToDoItemprops) {
     const { t } = useTranslation();
+    const [errorMessage, setErrorMessage] = useState('')
+
+
     const checkitem = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkitemid/${prop.item.id}`, {
             method: 'PUT',
-        }).then(() => prop.getData())
+        }).then (response => {if (!response.ok) throw new Error()} )
+            .then(() => prop.getData())
+            .catch(() => setErrorMessage("Failed to check item."));
     }
 
 
@@ -18,12 +25,17 @@ export default function ToDoItem(prop: ToDoItemprops) {
     const deleteitem = () => {
             fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/deleteitem/${prop.item.name}`, {
                 method: 'DELETE'
-                }).then(() => prop.getData())
+                }).then (response => {if (!response.ok) throw new Error()} )
+                .then(() => prop.getData())
+                .catch(() => setErrorMessage("Failed to delete item."));
     }
 
 
     return (
         <div className={prop.item.status ? "todoitem1" : "todoitem2"} data-testid="the-item">
+            <div className={errorMessage.length > 2 ? "error" : ""} data-testid="errorItem">
+                {errorMessage}
+            </div>
             <div className={prop.item.status ? "check1" : "check2"}>
                 <div className={prop.item.status ? "check1" : "check2"}>{t('itemName')} {prop.item.name}</div>
                 <div className={prop.item.status ? "check1" : "check2"}>{t('itemDescription')} {prop.item.description}</div>
@@ -32,8 +44,9 @@ export default function ToDoItem(prop: ToDoItemprops) {
                 <div className={prop.item.status ? "check1" : "check2"}>{t('itemStatus')} {prop.item.status ? t('todoChecked') : t('todoOpen')}</div>
             </div>
             <div className={"buttonBack"}>
-                <button className="button" onClick={checkitem}>{t('buttonCheckItem')}</button>
-                <button className="button" onClick={deleteitem}>{t('buttonDeleteItem')}</button>
+                <button className="button" data-testid="chekcbuttontest" onClick={checkitem}>{t('buttonCheckItem')}</button>
+                <button className="button" data-testid="deletebuttontest" onClick={deleteitem}>{t('buttonDeleteItem')}</button>
+                <Link to ={`${prop.item.id}`} className="button">{t('buttonEditItem')}</Link>
             </div>
 
         </div>

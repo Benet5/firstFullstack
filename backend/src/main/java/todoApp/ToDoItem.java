@@ -12,6 +12,19 @@ public class ToDoItem {
     private String name;
     private String description;
     private boolean status= false;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFormattedEndDate(String formattedEndDate) {
+        this.formattedEndDate = formattedEndDate;
+    }
+
     private String id;
 
     public String getFormattedEndDate() {

@@ -1,6 +1,7 @@
 package todoApp;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
@@ -13,39 +14,44 @@ public class ToDoService {
         this.todorepo = todorepo;
     }
 
-    public  void addItem(ToDoItem newitem){
+    public void addItem(ToDoItem newitem) {
         todorepo.addItem(newitem);
     }
 
-    public List<ToDoItem> getAllItems(){
+    public List<ToDoItem> getAllItems() {
         return todorepo.getAllItems();
     }
 
-    public ToDoItem getItemByName(String name){
+    public ToDoItem getItemByName(String name) {
         return todorepo.getItemByName(name);
     }
 
-    public ToDoItem getItemById(String id){
+    public ToDoItem getItemById(String id) {
         return todorepo.getItemById(id);
     }
 
-    public List<ToDoItem> deleteCheckedItems(){
+    public List<ToDoItem> deleteCheckedItems() {
         return todorepo.deleteCheckedItems();
     }
 
-    public void deleteItem( String name){
+    public void deleteItem(String name) {
         todorepo.deleteItem(name);
     }
 
-    public void checkItemId(String id){
+    public void checkItemId(String id) {
         todorepo.checkItemId(id);
     }
 
-    public void checkItem(String name){
+    public void checkItem(String name) {
         todorepo.checkItem(name);
     }
 
-    public List<ToDoItem> itemsByDeadline(String deadline){
+    public List<ToDoItem> itemsByDeadline(String deadline) {
         return todorepo.itemsByDeadline(deadline);
+    }
+
+
+    public void updateItem(String id, ToDoItem item) {
+        todorepo.updateItem(id, item);
     }
 }

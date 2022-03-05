@@ -86,6 +86,16 @@ public class ToDoRepo {
     }
 
 
+    public void updateItem(String id, ToDoItem item) {
+        ToDoItem oldtodo= searchitemID(id).get();
+
+        oldtodo.setName(item.getName());
+        oldtodo.setDescription(item.getDescription());
+        oldtodo.setFormattedEndDate(item.getFormattedEndDate());
+
+        ;
+    }
+
 
     public List<ToDoItem> itemsByDeadline(String deadline){
         var todostream =todo.stream();
