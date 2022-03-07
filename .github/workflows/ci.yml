@@ -10,3 +10,14 @@ jobs:
           java-version: 17
       - name: verify
         run: mvn -B verify
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install & Build
+        run: npm install
+      - name: Unit tests
+        run: npm run test:ci

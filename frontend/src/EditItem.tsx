@@ -11,7 +11,7 @@ export default function EditItem() {
     const params = useParams();
     const [errorMessage, setErrormessage] = useState('')
 
-    // mit higher Order functions übergeben?
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');

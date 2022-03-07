@@ -46,7 +46,7 @@ export default function ToDoItem(prop: ToDoItemprops) {
             <div className={"buttonBack"}>
                 <button className="button" data-testid="chekcbuttontest" onClick={checkitem}>{t('buttonCheckItem')}</button>
                 <button className="button" data-testid="deletebuttontest" onClick={deleteitem}>{t('buttonDeleteItem')}</button>
-                <Link to ={`${prop.item.id}`} className="button">{t('buttonEditItem')}</Link>
+                <Link to ={`${prop.item.id}`} className="link">{t('buttonEditItem')}</Link>
             </div>
 
         </div>

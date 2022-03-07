@@ -21,7 +21,7 @@ render(<ToDoItem item={demoitem} getData={() => {}}/>)
     expect(result[4].textContent).toEqual("itemID 12345g")
 })
 
-/*
+
 test('To-Do-item could not be checked', async () => {
         jest.spyOn(global, 'fetch').mockImplementation((URL: string) => {
             expect(URL).toEqual("http://localhost:8080/todoapp/checkitemid/12345g")
@@ -78,5 +78,5 @@ test('To-Do-item could not be deleted', async () => {
         });
 
     }
-) */
+)
 

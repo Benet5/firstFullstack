@@ -8,16 +8,19 @@ export default function ToDoApp(){
     const [name, setName] =useState('');
     const [description, setDescription] = useState('');
     const [zeitraum, setZeitraum] = useState('');
-    const [searchname, setsearchName] =useState('');// nach Name suchen lassen
-    const [searchzeitraum, setsearchZeitraum] = useState('');
+    const [searchname, setsearchName] =useState(localStorage.getItem('currentsearchname') ?? '');// nach Name suchen lassen
+    const [searchzeitraum, setsearchZeitraum] = useState(localStorage.getItem('currentsearchzeit') ?? '');
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
 
 
     useEffect( () => {
+        setErrorMessage('')
+        localStorage.setItem('currentsearchname', searchname);
+        localStorage.setItem('currentsearchzeit', searchzeitraum);
         getAllData()
-    }, []
+    }, [searchname, searchzeitraum]
     )
 
 
@@ -29,7 +32,7 @@ export default function ToDoApp(){
                 throw new Error()
             })
             .then((response2 : Array<ItemStructure>) => {setAllData(response2)})
-            .catch(() => setErrorMessage("Failed to get Data."));
+            .catch(e => setErrorMessage(e.message));
 
     }
 
@@ -53,7 +56,7 @@ export default function ToDoApp(){
                     setDescription('')
                     setZeitraum('')
                     setErrorMessage('')
-                }).catch(()=>setErrorMessage('Failed to Post'))
+                }).catch(e =>setErrorMessage(e.message))
         }
     }
 
@@ -67,7 +70,7 @@ export default function ToDoApp(){
                 throw new Error()
             })
                 .then((todosFromBackend: Array<ItemStructure>) => setAllData(todosFromBackend))
-                .catch(() => setErrorMessage("Failed to delete checked items"));
+                .catch(e => setErrorMessage(e.message));
         }
 
 
@@ -84,8 +87,9 @@ export default function ToDoApp(){
             <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderName")} value={name} onChange={e => setName(e.target.value)}/></div>
             <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderDescription")} value={description} onChange={e => setDescription(e.target.value)}/></div>
             <div><input className="input" type ={'text'} placeholder={t("inputPlaceholderDeadline")} value={zeitraum} onChange={e => setZeitraum(e.target.value)}/></div>
-                <button className="button" type='submit'>{t('buttonCreateItem')}</button>
+                    <button className="button" type='submit'>{t('buttonCreateItem')}</button>
                 </form>
+
             </div>
             <div className="create">
             <h3>{t('searchItem')}</h3>
