@@ -64,7 +64,8 @@ test("delete checked items", async () => {
     Button.click();
 
     await waitFor(() => {
-        expect(screen.getByTestId("errorItemApp").textContent).toEqual("Failed to delete checked items")
+        expect(screen.getByTestId("errorItemApp").textContent).toEqual("" +
+            "")
     });
     }
 )
