@@ -60,4 +60,9 @@ public class ToDoController {
     public List<ToDoItem> deleteCheckedItems(){
         return service.deleteCheckedItems();
     }
+
+    @PutMapping("/updateitem/{id}")
+    public void updateItem(@PathVariable String id, @RequestBody ToDoItem item) {
+        service.updateItem(id, item);
+    }
 }

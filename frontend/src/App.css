@@ -1,6 +1,6 @@
 *{
     margin:0;
-    background-color: #9a8c34;
+    background-color: #89bdda;
     font-family: sans-serif;
 
 }
@@ -54,7 +54,20 @@ flex-wrap: wrap;
     border-radius: 5px;
     border: solid 1px #64C8B9;
     margin: 5px;
+    font-size: 12px;
 }
+
+.link{
+    background-color:#64C8B9;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px #64C8B9;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    color: black;
+}
+
 
 .input{
     padding: 10px;

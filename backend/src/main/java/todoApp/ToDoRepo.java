@@ -46,26 +46,8 @@ public class ToDoRepo {
 
     }
 
-    public void checkItemId(String id){
-        var result = searchitemID(id);
-        if (result.isPresent()) {
-            if(!result.get().isStatus()){
-                result.get().setStatus(true);
-            }else {result.get().setStatus(false);
-            } }
-        else throw new RuntimeException("Das ToDo gibt es nicht!");
-    }
 
-    public void checkItem(String name){
-        var result = searchitem(name);
-        if (result.isPresent()) {
-             if(!result.get().isStatus()){
-                 result.get().setStatus(true);
-             }else {result.get().setStatus(false);
-        } }
-             else throw new RuntimeException("Das ToDo gibt es nicht!");
-    }
-// Frontend-Bedingung: Namen der To-Dos müssen einzigartig sein, ergo weiteren Service für Gegencheck bereitstellen.
+
     public Optional<ToDoItem> searchitem(String name){
         var todostream =todo.stream();
         var result = todostream.filter(e -> e.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT)))
@@ -85,6 +67,16 @@ public class ToDoRepo {
         return todo;
     }
 
+
+    public void updateItem(String id, ToDoItem item) {
+        ToDoItem oldtodo= searchitemID(id).get();
+
+        oldtodo.setName(item.getName());
+        oldtodo.setDescription(item.getDescription());
+        oldtodo.setFormattedEndDate(item.getFormattedEndDate());
+
+        ;
+    }
 
 
     public List<ToDoItem> itemsByDeadline(String deadline){

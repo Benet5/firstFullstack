@@ -105,23 +105,6 @@ class ToDoRepoTest {
 
     }
 
-    @Test
-
-    void ShouldSetStatusTrue(){
-        List<ToDoItem> todo = new ArrayList<>();
-        ToDoRepo toDoRepo = new ToDoRepo(todo);
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",0);
-        ToDoItem newitem2 = new ToDoItem("Kaffekochen", "Für den gesamten Kurs 15 Tassen",0);
-        toDoRepo.addItem(newitem1);
-        toDoRepo.addItem(newitem2);
-
-        toDoRepo.checkItem("Milch");
-        toDoRepo.checkItem("Kaffekochen");
-        toDoRepo.checkItem("Kaffekochen");
-        Assertions.assertTrue(newitem1.isStatus());
-        Assertions.assertFalse(newitem2.isStatus());
-
-    }
 /*
     @Test
     void ShouldGetAllItemsbyDate(){
@@ -164,34 +147,9 @@ void ShouldgetItembyID(){
 
 }
 
-    @Test
-    void Shouldremovechecked(){
-        List<ToDoItem> todo = new ArrayList<>();
-        ToDoRepo toDoRepo = new ToDoRepo(todo);
-
-        ToDoItem newitem = new ToDoItem("Kaffeekochen", "Für den gesamten Kurs 15 Tassen",0);
-        ToDoItem newitem1 = new ToDoItem("Milch", "Für den gesamten Kurs 15 Tassen",0);
-        toDoRepo.addItem(newitem);
-        toDoRepo.addItem(newitem1);
 
 
-        toDoRepo.checkItem("Milch");
 
-        toDoRepo.deleteCheckedItems();
-        assertThat(todo.size() ==1);
-        assertThat(toDoRepo.getAllItems().contains(newitem));
-
-    }
 }
 
 
-
-
-        /*
-        SimpleDateFormat enddatum = new SimpleDateFormat();
-     enddatum.getTime().;
-Instant new = Instant.now();
-Date iat = Date.from(now);
-Date exp =Date.from(now).plus(Duration.of Hour(eingabeIT)
-
-   */
