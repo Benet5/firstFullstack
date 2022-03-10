@@ -38,20 +38,31 @@ public class ToDoService {
         todorepo.deleteItem(name);
     }
 
-    public void checkItemId(String id) {
-        todorepo.checkItemId(id);
-    }
-
-    public void checkItem(String name) {
-        todorepo.checkItem(name);
-    }
-
     public List<ToDoItem> itemsByDeadline(String deadline) {
         return todorepo.itemsByDeadline(deadline);
     }
 
-
     public void updateItem(String id, ToDoItem item) {
         todorepo.updateItem(id, item);
+    }
+
+    public void checkItemId(String id){
+        var result = todorepo.searchitemID(id);
+        if (result.isPresent()) {
+            if(!result.get().isStatus()){
+                result.get().setStatus(true);
+            }else {result.get().setStatus(false);
+            } }
+        else throw new RuntimeException("Das ToDo gibt es nicht!");
+    }
+
+    public void checkItem(String name){
+        var result = todorepo.searchitem(name);
+        if (result.isPresent()) {
+            if(!result.get().isStatus()){
+                result.get().setStatus(true);
+            }else {result.get().setStatus(false);
+            } }
+        else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 }

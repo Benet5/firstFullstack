@@ -23,8 +23,7 @@ render(<ToDoItem item={demoitem} getData={() => {}}/>, {wrapper: MemoryRouter})
 
 
 test('To-Do-item could not be checked', async () => {
-        jest.spyOn(global, 'fetch').mockImplementation((URL: string) => {
-            expect(URL).toEqual("http://localhost:8080/todoapp/checkitemid/12345g")
+        jest.spyOn(global, 'fetch').mockImplementation( () => {
             return Promise.resolve({
                 ok: false,
             } as Response)
@@ -52,8 +51,7 @@ test('To-Do-item could not be checked', async () => {
 )
 
 test('To-Do-item could not be deleted', async () => {
-        jest.spyOn(global, 'fetch').mockImplementation((URL: string) => {
-            expect(URL).toEqual("http://localhost:8080/todoapp/deleteitem/Han Solo")
+        jest.spyOn(global, 'fetch').mockImplementation(() => {
             return Promise.resolve({
                 ok: false,
             } as Response)
