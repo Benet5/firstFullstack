@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import {ItemStructure} from "./model";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {t} from "i18next";
-import ToDoItem from "./ToDoItem";
-import {setFlagsFromString} from "v8";
+
 
 
 export default function EditItem() {
@@ -21,15 +20,22 @@ export default function EditItem() {
     const navigate = useNavigate()
 
     useEffect(() => {
-            fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getitembyid/${params.itemId}`)
-                .then(response => response.json())
-                .then((item: ItemStructure) => {
-                    setName(item.name)
-                    setDescription(item.description)
-                    setDeadline(item.formattedEndDate)
-                    setItem(item)
-                })
-        }, [params.itemId]
+        fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getitembyid/${params.itemId}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                    throw new Error()
+            })
+            .then((item: ItemStructure) => {
+                setName(item.name)
+                setDescription(item.description)
+                setDeadline(item.formattedEndDate)
+                setItem(item)
+                setErrormessage('')
+            })
+            .catch(e => setErrormessage(e.message));
+    }, [params.itemId]
     )
 
     const savetoEdit = () => {

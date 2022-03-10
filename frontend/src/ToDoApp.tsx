@@ -49,21 +49,24 @@ export default function ToDoApp(){
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then (response => {if (!response.ok) throw new Error()} )
-                .then(() => getAllData())
-                .then(() => {
+            })
+            .then (response => {if (!response.ok) throw new Error()} )
+            .then(() => getAllData())
+            .then(() => {
                     setName('')
                     setDescription('')
                     setZeitraum('')
                     setErrorMessage('')
-                }).catch(e =>setErrorMessage(e.message))
+                })
+            .catch(e =>setErrorMessage(e.message))
         }
     }
 
     const deletechecked = () => {
             fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkeditems`, {
                 method: 'PUT'
-            })  .then(response => {
+            })
+                .then(response => {
                 if(response.ok){
                     return response.json();}
                 console.error("Failed to delete checked items")
