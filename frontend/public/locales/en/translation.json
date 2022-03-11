@@ -1,7 +1,7 @@
 {
   "inputPlaceholderName" : "To-Do-Name",
   "inputPlaceholderDescription" : "To-Do-Description",
-  "inputPlaceholderDeadline" : "To-Do-Deadline",
+  "inputPlaceholderDeadline" : "Your Deadline in days",
   "buttonCreateItem" : "Create item",
   "buttonGetAllData" : "Show all items",
   "buttonDeleteChecked" : "Delete all checked items",
