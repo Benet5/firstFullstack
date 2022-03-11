@@ -46,7 +46,7 @@ public class ToDoService {
 
 
     public List <ToDoItem>deleteCheckedItems() {
-        var todelete = todorepo.findAll().stream().filter(e -> !e.isStatus()).toList();
+        var todelete = todorepo.findAll().stream().filter(e -> e.isStatus()).toList();
         todorepo.deleteAll(todelete);
         return todorepo.findAll();
     }
