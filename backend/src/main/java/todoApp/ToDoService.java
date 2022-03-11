@@ -19,8 +19,8 @@ public class ToDoService {
 
 
 
-    public void addItem(ToDoItem newitem) {
-        todorepo.save(newitem);
+    public ToDoItem addItem(ToDoItem newitem) {
+        return todorepo.save(newitem);
     }
 
     public List<ToDoItem> getAllItems() {

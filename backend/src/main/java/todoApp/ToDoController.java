@@ -17,8 +17,8 @@ public class ToDoController {
     }
 
     @PostMapping
-    public void addItem(@RequestBody ToDoItem newitem){
-        service.addItem(newitem);
+    public ToDoItem addItem(@RequestBody ToDoItem newitem){
+        return service.addItem(newitem);
     }
 
     @GetMapping("/getitembyname/{name}")
