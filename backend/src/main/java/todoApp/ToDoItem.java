@@ -3,11 +3,12 @@ package todoApp;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "todolist")
 public class ToDoItem {
     private String name;
     private String description;
@@ -21,28 +22,36 @@ public class ToDoItem {
         this.id = id;
     }
 
-    public void setFormattedEndDate(String formattedEndDate) {
-        this.formattedEndDate = formattedEndDate;
+    public void setZeitraum(long zeitraum) {
+        this.zeitraum = zeitraum;
     }
 
+    @Id
     private String id;
 
     public String getFormattedEndDate() {
-        return formattedEndDate;
+        Instant now = Instant.now();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
+        return formatter.format(Date.from(now.plus(Duration.ofDays(zeitraum))));
     }
-    private String formattedEndDate;
 
 
+    private long zeitraum;
+
+    public long getZeitraum() {
+        return zeitraum;
+    }
 
     public ToDoItem(String name, String description, long zeitraum) {
         this.name = name;
         this.description = description;
-        Instant now = Instant.now();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
-        this.formattedEndDate = formatter.format(Date.from(now.plus(Duration.ofDays(zeitraum))));
-        this.id = UUID.randomUUID().toString();
+        this.zeitraum = zeitraum;
+
 
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {

@@ -1,68 +1,93 @@
 package todoApp;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+
+
 
 @Service
 public class ToDoService {
-    private ToDoRepo todorepo;
+    private final ToDoRepo todorepo;
 
     public ToDoService(ToDoRepo todorepo) {
         this.todorepo = todorepo;
     }
 
+
+
     public void addItem(ToDoItem newitem) {
-        todorepo.addItem(newitem);
+        todorepo.save(newitem);
     }
 
     public List<ToDoItem> getAllItems() {
-        return todorepo.getAllItems();
+        return todorepo.findAll();
+                //.stream().sorted(Comparator.comparing(ToDoItem::getFormattedEndDate)).toList();
     }
 
     public ToDoItem getItemByName(String name) {
-        return todorepo.getItemByName(name);
+        Optional <ToDoItem> result =todorepo.findByName(name);
+        if (result.isPresent()) {
+            return result.get();
+        } else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 
-    public ToDoItem getItemById(String id) {
-        return todorepo.getItemById(id);
+
+
+    public ToDoItem getItemById(String id){
+        Optional <ToDoItem> result = todorepo.findById(id);
+        if (result.isPresent()) {
+            return result.get();
+        } else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 
-    public List<ToDoItem> deleteCheckedItems() {
-        return todorepo.deleteCheckedItems();
+
+    public List <ToDoItem>deleteCheckedItems() {
+        var todelete = todorepo.findAll().stream().filter(e -> !e.isStatus()).toList();
+        todorepo.deleteAll(todelete);
+        return todorepo.findAll();
     }
 
-    public void deleteItem(String name) {
-        todorepo.deleteItem(name);
+    public Optional<ToDoItem> deleteItem(String name) {
+        return todorepo.deleteByName(name);
     }
 
     public List<ToDoItem> itemsByDeadline(String deadline) {
-        return todorepo.itemsByDeadline(deadline);
+        return todorepo.findAllByFormattedEndDate(deadline);
     }
 
     public void updateItem(String id, ToDoItem item) {
-        todorepo.updateItem(id, item);
+        ToDoItem oldtodo= todorepo.findById(id).get();
+        oldtodo.setName(item.getName());
+        oldtodo.setDescription(item.getDescription());
+        oldtodo.setZeitraum(item.getZeitraum());
     }
 
-    public void checkItemId(String id){
-        var result = todorepo.searchitemID(id);
+    public void checkItemId(String id) {
+        var result = todorepo.findById(id);
         if (result.isPresent()) {
-            if(!result.get().isStatus()){
+            if (!result.get().isStatus()) {
                 result.get().setStatus(true);
-            }else {result.get().setStatus(false);
-            } }
-        else throw new RuntimeException("Das ToDo gibt es nicht!");
+
+            } else {
+                result.get().setStatus(false);
+            }
+            todorepo.save(result.get());
+        } else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 
-    public void checkItem(String name){
-        var result = todorepo.searchitem(name);
+    public void checkItem(String name) {
+        var result = todorepo.findByName(name);
         if (result.isPresent()) {
-            if(!result.get().isStatus()){
+            if (!result.get().isStatus()) {
                 result.get().setStatus(true);
-            }else {result.get().setStatus(false);
-            } }
-        else throw new RuntimeException("Das ToDo gibt es nicht!");
+            } else {
+                result.get().setStatus(false);
+            }
+            todorepo.save(result.get());
+        } else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 }
