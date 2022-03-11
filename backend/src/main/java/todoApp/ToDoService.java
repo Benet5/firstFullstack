@@ -64,6 +64,7 @@ public class ToDoService {
         oldtodo.setName(item.getName());
         oldtodo.setDescription(item.getDescription());
         oldtodo.setZeitraum(item.getZeitraum());
+      todorepo.save(oldtodo);
     }
 
     public void checkItemId(String id) {
