@@ -14,4 +14,6 @@ public interface ToDoRepo extends MongoRepository<ToDoItem, String> {
   Optional<ToDoItem> deleteByName(String name);
 
   List<ToDoItem> findAllByFormattedEndDate (String deadline);
+
+  List<ToDoItem> deleteAllByStatusTrue();
 }

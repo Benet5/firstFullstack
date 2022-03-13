@@ -44,12 +44,17 @@ public class ToDoService {
         } else throw new RuntimeException("Das ToDo gibt es nicht!");
     }
 
-
     public List <ToDoItem>deleteCheckedItems() {
+        todorepo.deleteAllByStatusTrue();
+       return todorepo.findAll();
+    }
+
+
+   /* public List <ToDoItem>deleteCheckedItems() {
         var todelete = todorepo.findAll().stream().filter(e -> e.isStatus()).toList();
         todorepo.deleteAll(todelete);
         return todorepo.findAll();
-    }
+    } */
 
     public Optional<ToDoItem> deleteItem(String name) {
         return todorepo.deleteByName(name);
