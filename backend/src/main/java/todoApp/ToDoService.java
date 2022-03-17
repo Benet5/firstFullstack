@@ -65,11 +65,14 @@ public class ToDoService {
     }
 
     public void updateItem(String id, ToDoItem item) {
-        ToDoItem oldtodo= todorepo.findById(id).get();
-        oldtodo.setName(item.getName());
-        oldtodo.setDescription(item.getDescription());
-        oldtodo.setZeitraum(item.getZeitraum());
-      todorepo.save(oldtodo);
+        Optional <ToDoItem> oldtodo= todorepo.findById(id);
+        if(oldtodo.isPresent()){
+            oldtodo.get().setName(item.getName());
+            oldtodo.get().setDescription(item.getDescription());
+            oldtodo.get().setZeitraum(item.getZeitraum());
+            todorepo.save(oldtodo.get());
+        }
+        else throw new RuntimeException("Das Todo gibt es nicht");
     }
 
     public void checkItemId(String id) {
