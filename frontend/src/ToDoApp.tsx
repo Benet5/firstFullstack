@@ -2,6 +2,7 @@ import {FormEvent, useEffect, useState} from "react";
 import {ItemStructure} from "./model";
 import ToDoItem from "./ToDoItem";
 import { useTranslation } from "react-i18next";
+import {Link, useNavigate} from "react-router-dom";
 
 
 export default function ToDoApp(){
@@ -13,19 +14,31 @@ export default function ToDoApp(){
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
+    const [token, setToken] = useState(localStorage.getItem('jwt') ?? '')
+const navigate =useNavigate()
+
+    useEffect( () => {
+        localStorage.setItem('jwt', token);
+            if(token.length<3) {
+            navigate("/todoapp/auth/login")}
+        }, [token]
+    )
+
 
 
     useEffect( () => {
-        setErrorMessage('')
         localStorage.setItem('currentsearchname', searchname);
         localStorage.setItem('currentsearchzeit', searchzeitraum);
+        setErrorMessage('')
         getAllData()
     }, [searchname, searchzeitraum]
     )
 
 
   const getAllData = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getallitems`)
+        fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getallitems`,
+            {headers: {
+            Authorization: `Bearer ${token}`}})
             .then(response => {
                 if(response.ok){
                     return response.json();}
@@ -33,7 +46,6 @@ export default function ToDoApp(){
             })
             .then((response2 : Array<ItemStructure>) => {setAllData(response2)})
             .catch(e => setErrorMessage(e.message));
-
     }
 
     const postData = (event : FormEvent<HTMLFormElement>) => {
@@ -47,7 +59,8 @@ export default function ToDoApp(){
                     zeitraum: zeitraum
                 }),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 }
             })
             .then (response => {if (!response.ok) throw new Error()} )
@@ -64,7 +77,10 @@ export default function ToDoApp(){
 
     const deletechecked = () => {
             fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkeditems`, {
-                method: 'PUT'
+                method: 'PUT',
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                }
             })
                 .then(response => {
                 if(response.ok){
@@ -84,6 +100,14 @@ export default function ToDoApp(){
             <div className={errorMessage.length > 2 ? "error" : ""} data-testid={"errorItemApp"}>
                 {errorMessage}
             </div>
+            {token.length>1 &&
+                <div>
+                    <Link to="todoapp" className=""> <h3>Alle ToDos!</h3></Link>
+                    <Link to="/todoapp/auth/logout"> <h3>Logout</h3></Link>
+                </div>
+            }
+
+
             <div >
                 <form className="create" onSubmit={ev =>postData(ev)}>
             <h3>{t("createItem")}</h3>

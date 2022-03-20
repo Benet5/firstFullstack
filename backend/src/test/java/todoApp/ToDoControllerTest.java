@@ -1,12 +1,8 @@
 package todoApp;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import todoApp.user.AppUser;
@@ -37,7 +33,7 @@ class ToDoControllerTest {
         assertThat(loginResponse.getBody()).isNotEmpty();
 
 
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",1);
+        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",1, null);
 
         ResponseEntity<ToDoItem> response = restTemplate.exchange("/todoapp", HttpMethod.POST,
                 new HttpEntity<>(newitem1, createHeaders(loginResponse.getBody())),  ToDoItem.class);
@@ -59,8 +55,8 @@ class ToDoControllerTest {
         assertThat(loginResponse.getBody()).isNotEmpty();
 
 
-        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0);
-        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen nochmal",0);
+        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0, null);
+        ToDoItem newitem1 = new todoApp.ToDoItem("Magermilch", "Milch einkaufen nochmal",0, null);
 
 
         //POST von 2 Items
@@ -72,18 +68,18 @@ class ToDoControllerTest {
         assertEquals(response2.getStatusCode(), HttpStatus.OK);
 
         //Delete
-        ResponseEntity<Void> responseDel = restTemplate.exchange("/todoapp/deleteitem/Milch", HttpMethod.DELETE,
+        ResponseEntity<Void> responseDel = restTemplate.exchange("/todoapp/deleteitem/Magermilch", HttpMethod.DELETE,
                 new HttpEntity<>(createHeaders(loginResponse.getBody())),  Void.class);
         assertEquals(responseDel.getStatusCode(), HttpStatus.OK);
 
        // Zur Überprüfung
         ResponseEntity<ToDoItem[]> response3 = restTemplate.exchange("/todoapp/getallitems", HttpMethod.GET, new HttpEntity<>(createHeaders(loginResponse.getBody())), ToDoItem[].class);
-       assertTrue(response3.getBody().length == 2);
+        assertThat(response3.getBody()).contains(newitem2);
         // das ist dasgleiche wie
         var check = Arrays.stream(response3.getBody()).filter(e -> e.equals(newitem2)).findFirst();
         assertTrue(check.get().equals(newitem2));
         //das
-        assertThat(response3.getBody()).contains(newitem2);
+     //   assertThat(response3.getBody()).contains(newitem2);
 
 
     }
@@ -100,8 +96,8 @@ class ToDoControllerTest {
         assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(loginResponse.getBody()).isNotEmpty();
 
-        ToDoItem newitem9 = new ToDoItem("Kaffeebohnen", "ganze Bohnen!",0);
-        ToDoItem newitem8 = new todoApp.ToDoItem("Erbsen", "Erbsen einkaufen nochmal",0);
+        ToDoItem newitem9 = new ToDoItem("Kaffeebohnen", "ganze Bohnen!",0, null);
+        ToDoItem newitem8 = new todoApp.ToDoItem("Erbsen", "Erbsen einkaufen nochmal",0, null);
 
         //items anlegen
         ResponseEntity<ToDoItem> response = restTemplate.exchange("/todoapp", HttpMethod.POST,

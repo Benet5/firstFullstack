@@ -14,7 +14,7 @@ public class AppUserService {
     }
 
     public AppUser createUser(AppUser user) throws RuntimeException{
-        if(!repo.findByEmail(user.getEmail()).isPresent()) {
+        if(repo.findByEmail(user.getEmail()).isEmpty()) {
             return repo.save(user);
         } else {
             throw new RuntimeException("Fehler bei der Accountanlage");

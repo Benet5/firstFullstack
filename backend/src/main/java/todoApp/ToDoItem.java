@@ -13,6 +13,7 @@ public class ToDoItem {
     private String name;
     private String description;
     private boolean status= false;
+    private String userMail;
 
     public void setDescription(String description) {
         this.description = description;
@@ -35,6 +36,13 @@ public class ToDoItem {
         return formatter.format(Date.from(now.plus(Duration.ofDays(zeitraum))));
     }
 
+    public String getUserMail() {
+        return userMail;
+    }
+
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
+    }
 
     private long zeitraum;
 
@@ -42,10 +50,12 @@ public class ToDoItem {
         return zeitraum;
     }
 
-    public ToDoItem(String name, String description, long zeitraum) {
+    public ToDoItem(String name, String description, long zeitraum, String userMail) {
         this.name = name;
         this.description = description;
         this.zeitraum = zeitraum;
+        this.userMail =userMail;
+
 
 
     }
