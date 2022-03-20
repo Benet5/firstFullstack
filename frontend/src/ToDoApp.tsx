@@ -17,21 +17,19 @@ export default function ToDoApp(){
     const [token] = useState(localStorage.getItem('jwt') ?? '')
 const navigate =useNavigate()
 
+
+
     useEffect( () => {
         localStorage.setItem('jwt', token);
-            if(token.length<3) {
+        if(token.length<3) {
             navigate("/todoapp/auth/login")}
-        }, [token]
-    )
-
-
-
-    useEffect( () => {
-        localStorage.setItem('currentsearchname', searchname);
-        localStorage.setItem('currentsearchzeit', searchzeitraum);
-        setErrorMessage('')
-        getAllData()
-    }, [searchname, searchzeitraum]
+        else {
+            localStorage.setItem('currentsearchname', searchname);
+            localStorage.setItem('currentsearchzeit', searchzeitraum);
+            setErrorMessage('')
+            getAllData()
+        }
+    }, [searchname, searchzeitraum, token, navigate]
     )
 
 
@@ -102,7 +100,7 @@ const navigate =useNavigate()
             </div>
             {token.length>1 &&
                 <div>
-                    <Link to="todoapp" className=""> <h3>Alle ToDos!</h3></Link>
+                    <Link to="/todoapp" className=""> <h3>Alle ToDos!</h3></Link>
                     <Link to="/todoapp/auth/logout"> <h3>Logout</h3></Link>
                 </div>
             }

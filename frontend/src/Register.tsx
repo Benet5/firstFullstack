@@ -18,7 +18,7 @@ export default function Register(){
         setErrorMessage('')
         if (token.length>2)
         {navigate("/todoapp")}
-        }, [token]
+        }, [token, navigate]
     )
 
     const registerService = (event : FormEvent<HTMLFormElement>) => {
@@ -37,7 +37,7 @@ export default function Register(){
     return(
 
             <div>
-                <div className={errorMessage.length > 2 || (userPassword != userPasswordValidate)? "error" : ""} data-testid={"errorItemApp"}>
+                <div className={errorMessage.length > 2 || (userPassword !== userPasswordValidate)? "error" : ""} data-testid={"errorItemApp"}>
                     {errorMessage}
                 </div>
                 <div >

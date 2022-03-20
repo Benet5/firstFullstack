@@ -13,8 +13,6 @@ function App() {
                 </div>
             <div>
 
-
-
             <Outlet/>
 
             </div>

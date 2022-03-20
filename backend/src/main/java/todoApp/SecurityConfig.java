@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.POST, "/todoapp/auth/logout").permitAll()
                 .and().authorizeRequests()
                 .antMatchers("/todoapp/**").authenticated()
+                .antMatchers("/todoapp").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) //Spring Security meint mit Username immer das, was wir als sub nutzen beim Login/Registrieren
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

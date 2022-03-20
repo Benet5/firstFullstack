@@ -67,7 +67,7 @@ return (
     <div>
         {token.length>1 &&
             <div>
-                <Link to="todoapp" className=""> <h3>Alle ToDos!</h3></Link>
+                <Link to="/todoapp" className=""> <h3>Alle ToDos!</h3></Link>
                 <Link to="/todoapp/auth/logout" > <h3>Logout</h3></Link>
             </div>
         }

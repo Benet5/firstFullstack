@@ -12,9 +12,10 @@ export default function Login(){
     const navigate = useNavigate();
 
     useEffect( () => {
-            if (token.length>2)
+            if (token.length>2) {
                 navigate("/todoapp")
-        }, [token]
+            }
+        }, [token, navigate]
     )
 
 
