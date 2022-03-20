@@ -10,7 +10,7 @@ interface ToDoItemprops{
 export default function ToDoItem(prop: ToDoItemprops) {
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
-    const [token, setToken] = useState(localStorage.getItem('jwt') ?? '')
+    const [token] = useState(localStorage.getItem('jwt') ?? '')
 
     const checkitem = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkitemid/${prop.item.id}`, {

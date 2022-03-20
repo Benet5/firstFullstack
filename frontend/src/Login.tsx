@@ -14,7 +14,7 @@ export default function Login(){
     useEffect( () => {
             if (token.length>2)
                 navigate("/todoapp")
-        }, []
+        }, [token]
     )
 
 

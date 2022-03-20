@@ -6,7 +6,7 @@ import {register} from "./AuthService";
 
 export default function Register(){
 
-    const[token, setToken] = useState(localStorage.getItem('jwt') ?? '')
+    const[token] = useState(localStorage.getItem('jwt') ?? '')
     const [errorMessage, setErrorMessage] = useState('')
     const [userEmail, setUserEmail] =useState('')
     const [userPassword, setUserPassword] =useState('')
@@ -23,13 +23,13 @@ export default function Register(){
 
     const registerService = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (userEmail.length > 2 && userPassword == userPasswordValidate) {
+        if (userEmail.length > 2 && userPassword === userPasswordValidate) {
             register(userEmail, userPassword)
                 .then (response => {if (!response.ok) throw new Error("Den Nutzer gibt es schon!")} )
                 .then(() => navigate("/todoapp/auth/login"))
                 .catch(e =>setErrorMessage(e.message))}
         else{
-            throw new Error ("Passwörter stimmen nicht überein")
+            setErrorMessage("Passwörter stimmen nicht überein.");
         }
     }
 
@@ -37,7 +37,7 @@ export default function Register(){
     return(
 
             <div>
-                <div className={errorMessage.length > 2 ? "error" : ""} data-testid={"errorItemApp"}>
+                <div className={errorMessage.length > 2 || (userPassword != userPasswordValidate)? "error" : ""} data-testid={"errorItemApp"}>
                     {errorMessage}
                 </div>
                 <div >

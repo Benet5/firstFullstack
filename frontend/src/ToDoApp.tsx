@@ -14,7 +14,7 @@ export default function ToDoApp(){
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
-    const [token, setToken] = useState(localStorage.getItem('jwt') ?? '')
+    const [token] = useState(localStorage.getItem('jwt') ?? '')
 const navigate =useNavigate()
 
     useEffect( () => {

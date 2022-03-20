@@ -145,3 +145,9 @@ flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
+
+.error{
+    text-align: center;
+    justify-content: center;
+    color: red;
+}
