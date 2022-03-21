@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/todoapp")
-@CrossOrigin( origins ={"http://localhost:3000"})
+
 public class ToDoController {
 
     private ToDoService service;

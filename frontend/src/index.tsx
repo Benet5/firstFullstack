@@ -25,7 +25,7 @@ ReactDOM.render(
                     <Route path="/todoapp/auth" element={<Register/>}/>
                     <Route path="/todoapp/auth/login" element={<Login/>}/>
                     <Route path="/todoapp/auth/logout" element={<Logout/>}/>
-                    <Route path="*" element={<ToDoApp/>}/>
+                    <Route path="/*" element={<ToDoApp/>}/>
                 </Route>
             </Routes>
             </AuthProvider>
