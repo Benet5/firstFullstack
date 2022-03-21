@@ -29,11 +29,11 @@ class ToDoControllerTestMock {
     @Test
     void ShouldGetAllItems() {
         //UserAnlage
-        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new AppUser("test@email.de", "123456"), AppUser.class);
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test@email.de", "123456", "123456"), AppUser.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(createUserResponse.getBody().getEmail().equals("test@email.de"));
 
-        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test@email.de", "123456"), String.class);
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test@email.de", "123456", "123456"), String.class);
         assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(loginResponse.getBody()).isNotEmpty();
 

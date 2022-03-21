@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {ItemStructure} from "./model";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {t} from "i18next";
+import {useAuth} from "./AuthProvider";
 
 
 
@@ -9,18 +10,18 @@ export default function EditItem() {
     const [item, setItem] = useState({} as ItemStructure)
     const params = useParams();
     const [errorMessage, setErrormessage] = useState('')
-    const [token] = useState(localStorage.getItem('jwt') ?? '')
+   // const [token] = useState(localStorage.getItem('jwt') ?? '')
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
-
-
-//usenavigate hook
+    const {logout, token} = useAuth()
     const navigate = useNavigate()
 
+
+
     useEffect(() => {
-        localStorage.setItem('jwt', token);
+        if(token.length>3){
         fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getitembyid/${params.itemId}`, {
             headers: {
                 Authorization: `Bearer ${token}`}
@@ -39,7 +40,8 @@ export default function EditItem() {
                 setErrormessage('')
             })
             .catch(e => setErrormessage(e.message));
-    }, [params.itemId, token]
+    }
+        else{navigate("/todoapp/auth/login")}}, [params.itemId, token]
     )
 
     const savetoEdit = () => {
@@ -61,14 +63,16 @@ export default function EditItem() {
         }).then(() => navigate("/todoapp"))
     };
 
-
+    const logoutPage= () => {
+        logout()
+    }
 
 return (
     <div>
         {token.length>1 &&
             <div>
                 <Link to="/todoapp" className=""> <h3>Alle ToDos!</h3></Link>
-                <Link to="/todoapp/auth/logout" > <h3>Logout</h3></Link>
+                <button className="buttonLogs" onClick={logoutPage}><h3>Logout</h3></button>
             </div>
         }
 

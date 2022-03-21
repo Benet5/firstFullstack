@@ -18,9 +18,11 @@ public class UserController {
     }
 
     @PostMapping
-    public AppUser createUser(@RequestBody AppUser user) throws RuntimeException{
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return service.createUser(user);
+    public AppUser createUser(@RequestBody LoginData loginData) throws RuntimeException{
+        if(loginData.getPasswordValidate().equals(loginData.getPassword())) {
+            loginData.setPassword(passwordEncoder.encode(loginData.getPassword()));
+            return service.createUser(loginData);
+        } else throw new RuntimeException("Passwörter stimmen nicht überein.");
     }
 
     @GetMapping("/greets")

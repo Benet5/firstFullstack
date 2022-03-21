@@ -2,17 +2,20 @@ import {FormEvent, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 import {Link, useNavigate} from "react-router-dom";
-import {register} from "./AuthService";
+import {useAuth} from "./AuthProvider";
+
 
 export default function Register(){
 
-    const[token] = useState(localStorage.getItem('jwt') ?? '')
+
     const [errorMessage, setErrorMessage] = useState('')
     const [userEmail, setUserEmail] =useState('')
     const [userPassword, setUserPassword] =useState('')
     const [userPasswordValidate, setUserPasswordValidate] =useState('')
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const {token} = useAuth();
+
 
     useEffect( () => {
         setErrorMessage('')
@@ -21,11 +24,22 @@ export default function Register(){
         }, [token, navigate]
     )
 
+
+
     const registerService = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (userEmail.length > 2 && userPassword === userPasswordValidate) {
-            register(userEmail, userPassword)
-                .then (response => {if (!response.ok) throw new Error("Den Nutzer gibt es schon!")} )
+            return fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/auth`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: userEmail,
+                    password: userPassword,
+                    passwordValidate: userPasswordValidate
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then (response => {if (!response.ok) throw new Error("Den Nutzer gibt es schon!")} )
                 .then(() => navigate("/todoapp/auth/login"))
                 .catch(e =>setErrorMessage(e.message))}
         else{

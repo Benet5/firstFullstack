@@ -1,8 +1,10 @@
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useCallback, useEffect, useState} from "react";
 import {ItemStructure} from "./model";
 import ToDoItem from "./ToDoItem";
 import { useTranslation } from "react-i18next";
 import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "./AuthProvider";
+
 
 
 export default function ToDoApp(){
@@ -14,13 +16,12 @@ export default function ToDoApp(){
     const [allData, setAllData] = useState([] as Array <ItemStructure>)
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
-    const [token] = useState(localStorage.getItem('jwt') ?? '')
-const navigate =useNavigate()
+    const navigate =useNavigate()
+    const {token, logout} = useAuth()
 
 
 
     useEffect( () => {
-        localStorage.setItem('jwt', token);
         if(token.length<3) {
             navigate("/todoapp/auth/login")}
         else {
@@ -29,11 +30,11 @@ const navigate =useNavigate()
             setErrorMessage('')
             getAllData()
         }
-    }, [searchname, searchzeitraum, navigate, token]
+    }, [searchname, searchzeitraum, navigate, token, ()=>getAllData]
     )
 
 
-  const getAllData = () => {
+  const getAllData = useCallback(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getallitems`,
             {headers: {
             Authorization: `Bearer ${token}`}})
@@ -44,7 +45,7 @@ const navigate =useNavigate()
             })
             .then((response2 : Array<ItemStructure>) => {setAllData(response2)})
             .catch(e => setErrorMessage(e.message));
-    }
+    },[token]);
 
     const postData = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -90,6 +91,10 @@ const navigate =useNavigate()
                 .catch(e => setErrorMessage(e.message));
         }
 
+        const logoutPage= () => {
+        logout()
+        }
+
 
 //
     return (
@@ -98,10 +103,10 @@ const navigate =useNavigate()
                 <div className={errorMessage.length > 2 ? "error" : ""} data-testid={"errorItemApp"}>
                     {errorMessage}
                 </div>
-                {token.length > 1 &&
-                    <div>
+                {token &&
+                    <div className="flex">
                         <Link to="/todoapp" className=""><h3>Alle ToDos!</h3></Link>
-                        <Link to="/todoapp/auth/logout"><h3>Logout</h3></Link>
+                        <Link to="/todoapp/auth/logout" onClick={logoutPage}><h3>Logout</h3></Link>
                     </div>
                 }
 

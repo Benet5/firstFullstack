@@ -13,6 +13,9 @@ public class AppUser {
     @Id
     private String id;
 
+    public AppUser(){
+
+    }
 
     public AppUser(String email, String password) {
         this.email = email;
@@ -33,5 +36,9 @@ public class AppUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

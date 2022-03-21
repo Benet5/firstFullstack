@@ -24,11 +24,11 @@ class ToDoControllerTest {
 
     @Test
     void IntegrationstestPost() {
-        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new AppUser("test@email.de", "123456"), AppUser.class);
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test@email.de", "123456","123456"), AppUser.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(createUserResponse.getBody().getEmail().equals("test@email.de"));
 
-        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test@email.de", "123456"), String.class);
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test@email.de", "123456", "123456"), String.class);
         assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(loginResponse.getBody()).isNotEmpty();
 
@@ -46,11 +46,11 @@ class ToDoControllerTest {
     @Test
     void Integrationstestdelete(){
         //UserAnlage
-        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new AppUser("test2@email.de", "123456"), AppUser.class);
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test2@email.de", "123456", "123456"), AppUser.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(createUserResponse.getBody().getEmail().equals("test@email.de"));
+        assertThat(createUserResponse.getBody().getEmail().equals("test2@email.de"));
 
-        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test2@email.de", "123456"), String.class);
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test2@email.de", "123456", "123456"), String.class);
         assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(loginResponse.getBody()).isNotEmpty();
 
@@ -88,11 +88,11 @@ class ToDoControllerTest {
     void Integrationstestput(){
 
         //UserAnlage
-        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new AppUser("test3@email.de", "123456"), AppUser.class);
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test3@email.de", "123456", "123456"), AppUser.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(createUserResponse.getBody().getEmail().equals("test@email.de"));
+        assertThat(createUserResponse.getBody().getEmail().equals("test3@email.de"));
 
-        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test3@email.de", "123456"), String.class);
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test3@email.de", "123456", "123456"), String.class);
         assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(loginResponse.getBody()).isNotEmpty();
 

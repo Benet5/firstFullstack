@@ -1,10 +1,11 @@
 import {FormEvent, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Link, useNavigate} from "react-router-dom";
-import {login} from "./AuthService";
+
+import {useAuth} from "./AuthProvider";
 
 export default function Login(){
-    const[token, setToken] = useState(localStorage.getItem('jwt') ?? '')
+    const {token, login} = useAuth()
     const [errorMessage, setErrorMessage] = useState('')
     const [userEmail, setUserEmail] =useState('')
     const [userPassword, setUserPassword] =useState('')
@@ -12,12 +13,11 @@ export default function Login(){
     const navigate = useNavigate();
 
     useEffect( () => {
-            if (token.length>2) {
-                navigate("/todoapp")
-            }
+            setErrorMessage('')
+            if (token.length>2)
+            {navigate("/todoapp")}
         }, [token, navigate]
     )
-
 
     useEffect( () => {
         setErrorMessage('')
@@ -28,7 +28,6 @@ export default function Login(){
     const loginService = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
            login(userEmail, userPassword)
-               .then((response : string) => setToken(response))
                .then(() => navigate("/todoapp"))
                .catch(e =>setErrorMessage(e.message))
     }

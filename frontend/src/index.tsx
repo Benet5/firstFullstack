@@ -9,6 +9,7 @@ import EditItem from "./EditItem";
 import Register from "./Register";
 import Login from "./Login";
 import Logout from "./Logout";
+import AuthProvider from "./AuthProvider";
 
 
 
@@ -16,6 +17,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback='Loading...'>
         <BrowserRouter>
+            <AuthProvider>
             <Routes>
                 <Route path="/" element={<App/>}>
                    <Route path="todoapp" element={<ToDoApp/>}/>
@@ -26,6 +28,7 @@ ReactDOM.render(
                     <Route path="*" element={<ToDoApp/>}/>
                 </Route>
             </Routes>
+            </AuthProvider>
         </BrowserRouter>
         </Suspense>
     </React.StrictMode>,

@@ -2,15 +2,18 @@ import {ItemStructure} from "./model";
 import { useTranslation } from "react-i18next";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-//import {useState} from "react";
+import {useAuth} from "./AuthProvider";
+
 interface ToDoItemprops{
     item: ItemStructure
     getData: () => void;
 }
+
 export default function ToDoItem(prop: ToDoItemprops) {
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
-    const [token] = useState(localStorage.getItem('jwt') ?? '')
+    const {token} =useAuth();
+    //const [token] = useState(localStorage.getItem('jwt') ?? '')
 
     const checkitem = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkitemid/${prop.item.id}`, {
