@@ -19,7 +19,18 @@ export default function ToDoApp(){
     const navigate =useNavigate()
     const {token, logout} = useAuth()
 
-
+    const getAllData = useCallback(() => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getallitems`,
+            {headers: {
+                    Authorization: `Bearer ${token}`}})
+            .then(response => {
+                if(response.ok){
+                    return response.json();}
+                throw new Error()
+            })
+            .then((response2 : Array<ItemStructure>) => {setAllData(response2)})
+            .catch(e => setErrorMessage(e.message));
+    },[token]);
 
     useEffect( () => {
         if(token.length<3) {
@@ -30,22 +41,10 @@ export default function ToDoApp(){
             setErrorMessage('')
             getAllData()
         }
-    }, [searchname, searchzeitraum, navigate, token, ()=>getAllData]
+    }, [searchname, searchzeitraum, navigate, token, getAllData]
     )
 
 
-  const getAllData = useCallback(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/getallitems`,
-            {headers: {
-            Authorization: `Bearer ${token}`}})
-            .then(response => {
-                if(response.ok){
-                    return response.json();}
-                throw new Error()
-            })
-            .then((response2 : Array<ItemStructure>) => {setAllData(response2)})
-            .catch(e => setErrorMessage(e.message));
-    },[token]);
 
     const postData = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()

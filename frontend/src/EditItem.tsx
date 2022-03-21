@@ -41,7 +41,7 @@ export default function EditItem() {
             })
             .catch(e => setErrormessage(e.message));
     }
-        else{navigate("/todoapp/auth/login")}}, [params.itemId, token]
+        else{navigate("/todoapp/auth/login")}}, [params.itemId, token, navigate]
     )
 
     const savetoEdit = () => {
