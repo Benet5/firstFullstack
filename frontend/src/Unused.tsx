@@ -1,10 +1,18 @@
+export default function Unused(){
+    return( null)
+}
 
+
+/*
 import {render, screen, waitFor} from '@testing-library/react';
 import ToDoApp from "./ToDoApp";
 import {MemoryRouter} from "react-router-dom";
+import {useState} from "react";
+
+beforeAll(
 
 test("list should been rendered", async () => {
-        jest.spyOn(global, 'fetch').mockImplementation(() => {
+    jest.spyOn(global, 'fetch').mockImplementation(() => {
             return Promise.resolve({
                 ok: true,
                 json: () => Promise.resolve(
@@ -23,6 +31,7 @@ test("list should been rendered", async () => {
                 )
             } as Response);
         });
+
 
         render(<ToDoApp/>, {wrapper: MemoryRouter})
         await waitFor(() => {
@@ -68,4 +77,6 @@ test("delete checked items", async () => {
             "")
     });
     }
-) */
+)
+*/
+

@@ -119,6 +119,35 @@ flex-wrap: wrap;
 }
 
 
+.logout{
+    background-color: transparent;
+    color:black;
+
+}
 
 
+.buttonLogs{
+    text-align: center;
+    justify-content: center;
+    background-color:#64C8B9;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px #64C8B9;
+    margin: 15px;
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
 
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error{
+    text-align: center;
+    justify-content: center;
+    color: red;
+}

@@ -3,11 +3,12 @@ package todoApp;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/todoapp")
-@CrossOrigin
+@CrossOrigin( origins ={"http://localhost:3000"})
 public class ToDoController {
 
     private ToDoService service;
@@ -17,13 +18,13 @@ public class ToDoController {
     }
 
     @PostMapping
-    public ToDoItem addItem(@RequestBody ToDoItem newitem){
-        return service.addItem(newitem);
+    public ToDoItem addItem(@RequestBody ToDoItem newitem, Principal principal){
+        return service.addItem(newitem, principal);
     }
 
     @GetMapping("/getitembyname/{name}")
-    public ToDoItem getItemByName(@PathVariable String name){
-        return service.getItemByName(name);
+    public ToDoItem getItemByName(@PathVariable String name, Principal principal){
+        return service.getItemByName(name, principal);
     }
 
     @GetMapping("/getitembyid/{id}")
@@ -32,8 +33,8 @@ public class ToDoController {
     }
 
     @DeleteMapping ("/deleteitem/{name}")
-    public void deleteItem(@PathVariable String name){
-        service.deleteItem(name);
+    public void deleteItem(@PathVariable String name, Principal principal){
+        service.deleteItem(name, principal);
     }
 
     @PutMapping("/checkitemid/{id}")
@@ -47,22 +48,22 @@ public class ToDoController {
     }
 
     @GetMapping ("/getallitems")
-    public List<ToDoItem> getAllItems(){
-        return service.getAllItems();
+    public List<ToDoItem> getAllItems(Principal principal){
+        return service.getAllItems(principal);
     }
 
     @GetMapping("/getbydate/{deadline}")
-    public List<ToDoItem> getItemsByDate(@PathVariable String deadline){
-        return service.itemsByDeadline(deadline);
+    public List<ToDoItem> getItemsByDate(@PathVariable String deadline, Principal principal){
+        return service.itemsByDeadline(deadline, principal);
     }
 
     @PutMapping("/checkeditems")
-    public List<ToDoItem> deleteCheckedItems(){
-        return service.deleteCheckedItems();
+    public List<ToDoItem> deleteCheckedItems(Principal principal){
+        return service.deleteCheckedItems(principal);
     }
 
     @PutMapping("/updateitem/{id}")
-    public void updateItem(@PathVariable String id, @RequestBody ToDoItem item) {
-        service.updateItem(id, item);
+    public void updateItem(@PathVariable String id, @RequestBody ToDoItem item, Principal principal) {
+        service.updateItem(id, item, principal);
     }
 }

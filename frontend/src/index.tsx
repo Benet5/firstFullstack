@@ -6,19 +6,29 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ToDoApp from "./ToDoApp";
 import EditItem from "./EditItem";
+import Register from "./Register";
+import Login from "./Login";
+import Logout from "./Logout";
+import AuthProvider from "./AuthProvider";
+
 
 
 ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback='Loading...'>
         <BrowserRouter>
+            <AuthProvider>
             <Routes>
                 <Route path="/" element={<App/>}>
                    <Route path="todoapp" element={<ToDoApp/>}/>
                     <Route path="todoapp/:itemId" element={<EditItem/>}/>
+                    <Route path="todoapp/auth" element={<Register/>}/>
+                    <Route path="todoapp/auth/login" element={<Login/>}/>
+                    <Route path="todoapp/auth/logout" element={<Logout/>}/>
                     <Route path="*" element={<ToDoApp/>}/>
                 </Route>
             </Routes>
+            </AuthProvider>
         </BrowserRouter>
         </Suspense>
     </React.StrictMode>,

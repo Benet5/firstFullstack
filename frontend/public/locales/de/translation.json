@@ -19,5 +19,14 @@
   "todoOpen": "To-Do ist noch offen!",
   "todoChecked" : "To-Do ist schon gecheckt!",
   "buttonEditItem" : "Item bearbeiten",
-  "buttonSaveItem" : "Speichern"
+  "buttonSaveItem" : "Speichern",
+  "inputPlaceholderEmail" : "Email",
+  "inputPlaceholderPassword": "Password",
+  "register": "Registrierung",
+  "login": "Login",
+  "inoutLoginCmd" : "Klicke hier, um dich einzuloggen.",
+  "buttonLogin": "Zum Login",
+  "inoutRegisterCmd" : "Klicke hier, um dich zu registrieren.",
+  "buttonRegister": "Zur Registrierung",
+  "logoutMessage": "Viel Erfolg mit deinen ausstehenden To-Dos!"
 }

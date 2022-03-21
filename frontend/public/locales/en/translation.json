@@ -19,5 +19,15 @@
   "todoOpen": "To-Do is still open!",
   "todoChecked" : "To-Do is already checked!",
   "buttonEditItem" : "Edit item",
-  "buttonSaveItem" : "save"
+  "buttonSaveItem" : "Save",
+  "inputPlaceholderEmail" : "Email",
+  "inputPlaceholderPassword": "Password",
+  "register": "Sign up",
+  "login": "Sign in",
+  "inoutLoginCmd" : "Click here for Signing in",
+  "buttonLogin": "To sign in",
+  "inoutRegisterCmd" : "Click here for signing up!",
+  "buttonRegister": "To Sign up",
+"logoutMessage": "Good Luck with your remaining To-Dos!"
+
 }

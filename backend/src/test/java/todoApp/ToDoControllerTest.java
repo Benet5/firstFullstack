@@ -1,15 +1,12 @@
 package todoApp;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import todoApp.user.AppUser;
+import todoApp.user.LoginData;
 
 import java.util.*;
 
@@ -27,61 +24,120 @@ class ToDoControllerTest {
 
     @Test
     void IntegrationstestPost() {
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test@email.de", "123456","123456"), AppUser.class);
+        assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(createUserResponse.getBody().getEmail().equals("test@email.de"));
 
-        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",1);
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test@email.de", "123456", "123456"), String.class);
+        assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(loginResponse.getBody()).isNotEmpty();
 
-        ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem1, Void.class);
+
+        ToDoItem newitem1 = new ToDoItem("Milch", "Milch einkaufen",1, null);
+
+        ResponseEntity<ToDoItem> response = restTemplate.exchange("/todoapp", HttpMethod.POST,
+                new HttpEntity<>(newitem1, createHeaders(loginResponse.getBody())),  ToDoItem.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(newitem1.getName(), response.getBody().getName());
 
-        ResponseEntity<ToDoItem> response1 = restTemplate.getForEntity("/todoapp/getitembyname/Milch", ToDoItem.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(newitem1.getName(), response1.getBody().getName());
     }
 
 
     @Test
     void Integrationstestdelete(){
-        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0);
-        ToDoItem newitem1 = new todoApp.ToDoItem("Milch", "Milch einkaufen nochmal",0);
-        ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem2, Void.class);
+        //UserAnlage
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test2@email.de", "123456", "123456"), AppUser.class);
+        assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(createUserResponse.getBody().getEmail().equals("test2@email.de"));
+
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test2@email.de", "123456", "123456"), String.class);
+        assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(loginResponse.getBody()).isNotEmpty();
+
+
+        ToDoItem newitem2 = new ToDoItem("Kaffee", "ganze Bohnen!",0, null);
+        ToDoItem newitem1 = new todoApp.ToDoItem("Magermilch", "Milch einkaufen nochmal",0, null);
+
+
+        //POST von 2 Items
+        ResponseEntity<ToDoItem> response = restTemplate.exchange("/todoapp", HttpMethod.POST,
+                new HttpEntity<>(newitem2, createHeaders(loginResponse.getBody())),  ToDoItem.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        ResponseEntity<Void> response1 = restTemplate.postForEntity("/todoapp", newitem1, Void.class);
-        assertEquals(response1.getStatusCode(), HttpStatus.OK);
+        ResponseEntity<ToDoItem> response2 = restTemplate.exchange("/todoapp", HttpMethod.POST,
+                new HttpEntity<>(newitem1, createHeaders(loginResponse.getBody())),  ToDoItem.class);
+        assertEquals(response2.getStatusCode(), HttpStatus.OK);
 
+        //Delete
+        ResponseEntity<Void> responseDel = restTemplate.exchange("/todoapp/deleteitem/Magermilch", HttpMethod.DELETE,
+                new HttpEntity<>(createHeaders(loginResponse.getBody())),  Void.class);
+        assertEquals(responseDel.getStatusCode(), HttpStatus.OK);
 
-       restTemplate.delete("/todoapp/deleteitem/Milch", Void.class);
-
-        ResponseEntity<ToDoItem[]> response3 = restTemplate.getForEntity("/todoapp/getallitems", ToDoItem[].class);
-       assertTrue(response3.getBody().length == 2);
+       // Zur Überprüfung
+        ResponseEntity<ToDoItem[]> response3 = restTemplate.exchange("/todoapp/getallitems", HttpMethod.GET, new HttpEntity<>(createHeaders(loginResponse.getBody())), ToDoItem[].class);
+        assertThat(response3.getBody()).contains(newitem2);
         // das ist dasgleiche wie
         var check = Arrays.stream(response3.getBody()).filter(e -> e.equals(newitem2)).findFirst();
         assertTrue(check.get().equals(newitem2));
         //das
-        assertThat(response3.getBody()).contains(newitem2);
+     //   assertThat(response3.getBody()).contains(newitem2);
 
 
     }
 
     @Test
     void Integrationstestput(){
-        ToDoItem newitem9 = new ToDoItem("Kino", "ganze Bohnen!",0);
-        ToDoItem newitem8 = new todoApp.ToDoItem("Milch", "Milch einkaufen",0);
-        ResponseEntity<Void> response = restTemplate.postForEntity("/todoapp", newitem9, Void.class);
+
+        //UserAnlage
+        ResponseEntity<AppUser> createUserResponse = restTemplate.postForEntity("/todoapp/auth", new LoginData("test3@email.de", "123456", "123456"), AppUser.class);
+        assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(createUserResponse.getBody().getEmail().equals("test3@email.de"));
+
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity("/todoapp/auth/login", new LoginData("test3@email.de", "123456", "123456"), String.class);
+        assertThat(loginResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(loginResponse.getBody()).isNotEmpty();
+
+        ToDoItem newitem9 = new ToDoItem("Kaffeebohnen", "ganze Bohnen!",0, null);
+        ToDoItem newitem8 = new todoApp.ToDoItem("Erbsen", "Erbsen einkaufen nochmal",0, null);
+
+        //items anlegen
+        ResponseEntity<ToDoItem> response = restTemplate.exchange("/todoapp", HttpMethod.POST,
+                new HttpEntity<>(newitem9, createHeaders(loginResponse.getBody())),  ToDoItem.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        ResponseEntity<Void> response1 = restTemplate.postForEntity("/todoapp", newitem8, Void.class);
-        assertEquals(response1.getStatusCode(), HttpStatus.OK);
-        // testen mit einem moc
+        ResponseEntity<ToDoItem> response2 = restTemplate.exchange("/todoapp", HttpMethod.POST,
+                new HttpEntity<>(newitem8, createHeaders(loginResponse.getBody())),  ToDoItem.class);
+        assertEquals(response2.getStatusCode(), HttpStatus.OK);
 
-        restTemplate.put("/todoapp/checkitem/Milch", newitem8, Void.class);
-        restTemplate.put("/todoapp/checkitem/Kino", newitem9, Void.class);
-        restTemplate.put("/todoapp/checkitem/Kino", newitem9, Void.class);
+        // Items checken
+        ResponseEntity <Void> response5 = restTemplate.exchange("/todoapp/checkitem/Erbsen", HttpMethod.PUT,
+                new HttpEntity<>(newitem8, createHeaders(loginResponse.getBody())),  Void.class);
+        assertEquals(response5.getStatusCode(), HttpStatus.OK);
+
+        ResponseEntity<Void> response6 = restTemplate.exchange("/todoapp/checkitem/Kaffeebohnen", HttpMethod.PUT,
+                new HttpEntity<>(newitem9, createHeaders(loginResponse.getBody())),  Void.class);
+        assertEquals(response6.getStatusCode(), HttpStatus.OK);
+
+        ResponseEntity<Void> response7 = restTemplate.exchange("/todoapp/checkitem/Kaffeebohnen", HttpMethod.PUT,
+                new HttpEntity<>(newitem9, createHeaders(loginResponse.getBody())),  Void.class);
+        assertEquals(response7.getStatusCode(), HttpStatus.OK);
 
 
-        ResponseEntity<ToDoItem> response6 = restTemplate.getForEntity("/todoapp/getitembyname/Milch", ToDoItem.class);
-        ResponseEntity<ToDoItem> response4 = restTemplate.getForEntity("/todoapp/getitembyname/Kino", ToDoItem.class);
-        assertTrue(response6.getBody().isStatus());
-        assertFalse(response4.getBody().isStatus());
+        //Items Prüfen
+        ResponseEntity<ToDoItem> response8 = restTemplate.exchange("/todoapp/getitembyname/Erbsen", HttpMethod.GET,
+                new HttpEntity<>(createHeaders(loginResponse.getBody())), ToDoItem.class);
+        ResponseEntity<ToDoItem> response9 = restTemplate.exchange("/todoapp/getitembyname/Kaffeebohnen", HttpMethod.GET,
+                new HttpEntity<>(createHeaders(loginResponse.getBody())), ToDoItem.class);
+        assertTrue(response8.getBody().isStatus());
+        assertFalse(response9.getBody().isStatus());
         }
+
+    private HttpHeaders createHeaders(String token){
+        String authHeader = "Bearer " + token;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authHeader);
+
+        return headers;
+    }
+
 
     }
 

@@ -15,5 +15,12 @@ public interface ToDoRepo extends MongoRepository<ToDoItem, String> {
 
   List<ToDoItem> findAllByFormattedEndDate (String deadline);
 
-  List<ToDoItem> deleteAllByStatusTrue();
+ List<ToDoItem> findAllByUserMail (String userMail);
+
+ List<ToDoItem> deleteAllByUserMailAndStatusTrue(String userMail);
+
+ List<ToDoItem> findAllByFormattedEndDateAndUserMail (String deadline, String userMail);
+
+
+
 }

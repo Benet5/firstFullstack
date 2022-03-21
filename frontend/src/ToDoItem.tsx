@@ -2,19 +2,24 @@ import {ItemStructure} from "./model";
 import { useTranslation } from "react-i18next";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-//import {useState} from "react";
+import {useAuth} from "./AuthProvider";
+
 interface ToDoItemprops{
     item: ItemStructure
     getData: () => void;
 }
+
 export default function ToDoItem(prop: ToDoItemprops) {
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('')
-
+    const {token} =useAuth();
+    //const [token] = useState(localStorage.getItem('jwt') ?? '')
 
     const checkitem = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/checkitemid/${prop.item.id}`, {
             method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`}
         }).then (response => {if (!response.ok) throw new Error()} )
             .then(() => prop.getData())
             .catch(() => setErrorMessage("Failed to check item."));
@@ -24,7 +29,9 @@ export default function ToDoItem(prop: ToDoItemprops) {
 
     const deleteitem = () => {
             fetch(`${process.env.REACT_APP_BASE_URL}/todoapp/deleteitem/${prop.item.name}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`}
                 }).then (response => {if (!response.ok) throw new Error()} )
                 .then(() => prop.getData())
                 .catch(() => setErrorMessage("Failed to delete item."));
