@@ -11,7 +11,7 @@ export default function Logout(){
         <div>
             <div className="logout"><h3>{t('logoutMessage')}</h3></div>
 
-            <div className="flex" > <Link to="todoapp/auth/login" className="buttonLogs">{t('buttonLogin')}</Link> </div>
+
 
         </div>
     )

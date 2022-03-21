@@ -64,10 +64,7 @@ export default function Register(){
                     </form>
                 </div>
 
-                <div >
-                   <h3>{t("inoutLoginCmd")} </h3>
-                    <div className="flex"><Link to ="todoapp/auth/login" type='submit' className="buttonLogs">{t('buttonLogin')}</Link></div>
-                </div>
+
             </div>
 
 

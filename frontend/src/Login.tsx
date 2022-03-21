@@ -47,10 +47,7 @@ export default function Login(){
                     <button className="button" type='submit'>{t('login')}</button>
                 </form>
             </div>
-            <div >
-                <h3>{t("inoutRegisterCmd")} </h3>
-                 <div className="flex"><Link to="/todoapp/auth" type='submit' className="buttonLogs">{t('buttonRegister')} </Link></div>
-            </div>
+
         </div>
 
 
