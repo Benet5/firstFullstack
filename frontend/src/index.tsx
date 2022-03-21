@@ -19,7 +19,7 @@ ReactDOM.render(
         <BrowserRouter>
             <AuthProvider>
             <Routes>
-                <Route path="/" element={<Login/>}>
+                <Route path="/" element={<App/>}>
                    <Route path="/todoapp" element={<ToDoApp/>}/>
                     <Route path="/todoapp/:itemId" element={<EditItem/>}/>
                     <Route path="/todoapp/auth" element={<Register/>}/>
