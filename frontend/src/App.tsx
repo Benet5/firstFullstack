@@ -1,7 +1,7 @@
 
 import './App.css'
 import { useTranslation } from "react-i18next";
-import { Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 
 function App() {
     const { t } = useTranslation();
@@ -12,7 +12,10 @@ function App() {
                     <h2>{t('title')}</h2>
                 </div>
             <div>
-
+                <div className="flex">
+            <div> <Link to="/todoapp/auth/login" className=""><h3>{t('login')}</h3></Link></div>
+            <div> <Link to="/todoapp/auth" className=""><h3>{t('register')}</h3></Link></div>
+                </div>
             <Outlet/>
 
             </div>
