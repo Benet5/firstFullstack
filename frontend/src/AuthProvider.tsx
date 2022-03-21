@@ -1,6 +1,5 @@
 import {ReactNode, useContext, useState} from "react";
 import AuthContext from "./AuthContext";
-import {useNavigate} from "react-router-dom";
 
 export const useAuth = () => useContext(AuthContext);
 
