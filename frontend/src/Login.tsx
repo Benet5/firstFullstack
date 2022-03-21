@@ -1,6 +1,6 @@
 import {FormEvent, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 import {useAuth} from "./AuthProvider";
 
@@ -47,10 +47,7 @@ export default function Login(){
                     <button className="button" type='submit'>{t('login')}</button>
                 </form>
             </div>
-            <div >
-                <h3>{t("inoutRegisterCmd")} </h3>
-                 <div className="flex"><Link to="/todoapp/auth" type='submit' className="buttonLogs">{t('buttonRegister')} </Link></div>
-            </div>
+
         </div>
 
 

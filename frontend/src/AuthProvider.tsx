@@ -1,11 +1,13 @@
 import {ReactNode, useContext, useState} from "react";
 import AuthContext from "./AuthContext";
 
+
 export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({children}:{children : ReactNode}){
 
     const [token, setToken] = useState('');
+
 
 
     const login = (userEmail : string, userPassword : string) => {
@@ -34,9 +36,7 @@ export default function AuthProvider({children}:{children : ReactNode}){
 
 
     const logout = () => {
-setToken('');
-
-
+    setToken('')
     }
 
 
