@@ -13,6 +13,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class ToDoServiceTest {
 
@@ -157,12 +158,12 @@ class ToDoServiceTest {
         Mockito.when(todoRepo.save(newitem1)).thenReturn((new ToDoItem("Milch", "Für den gesamten Kurs 15 Tassen",0, "")));
         service.addItem(newitem1, p);
         service.addItem(newitem2, p);
+// mit verify, um löschfunktion und post abzudecken
 
         Mockito.when(todoRepo.findByName("Milch")).thenReturn(Optional.of(newitem3));
-        Mockito.when(todoRepo.deleteByName("Milch")).thenReturn(Optional.of(newitem3));
-        var result= service.deleteItem("Milch", p);
+        todoRepo.deleteByName("Milch");
+        verify(todoRepo).deleteByName("Milch");
 
-        assertEquals(newitem3, result.get());
 
     }
 
